@@ -54,7 +54,7 @@
         color:grey !important;
     }
 
-    .navbar-custom {
+    #mainNav {
         background: rgba(255, 255, 255, 0) !important;
         box-shadow: none;
     }
@@ -97,6 +97,27 @@
         border: none!important;
         height: 40px!important;
         margin-right:5px!important;
+    }
+    .btn-show-map:hover {
+        background-color: white!important;
+        color: #0095FF!important;
+        border: 2px solid #0095FF!important;
+    }
+
+    .navbar-map .btn-show-map{
+        margin-right: 15px !important;
+        font-size: 16px;
+        margin-top:2px;
+    }
+
+    .navbar-map .menu-name-profil,
+    #menu-map-btn-start-search,
+    #input-search-map{
+        display: none;
+    }
+
+    .navbar-map .navbar-header{
+        display: none;
     }
 
     .dropdown-menu.arrow_box.lang{

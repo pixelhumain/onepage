@@ -188,7 +188,7 @@ Yii::app()->getClientScript()->registerScriptFile(
 		<?php $this->renderPartial("onepage", array("element"=>$element,
 			        							   "type"=>Person::COLLECTION,
 			        							   "me"=>$me,
-			        							   "edit"=>true,
+			        							   "edit"=>@$edit,
 			        							   "openEdition"=>true,
 			        							   "layoutPath" => $layoutPath)); ?>
 		</div>

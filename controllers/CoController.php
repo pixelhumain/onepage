@@ -44,11 +44,14 @@ class CoController extends CommunecterController {
 
 	      	$this->module->description = $shortDesc;
 
+	      	$params = array("element"=>$element,
+						    "type"=>$element["type"],
+						    );
+
+	      	$params = Element::getInfoDetail($params, $element, $element["type"], $element["_id"]);
+
 	        $this->layout = "//layouts/empty";
-	        $this->render("index", array("element"=>$element,
-	        							   "type"=>Person::COLLECTION,
-	        							   "edit"=>true,
-	        							   "openEdition"=>true));
+	        $this->render("index", $params);
 	      }
     	//$this->redirect(Yii::app()->createUrl( "/".Yii::app()->params["module"]["parent"] ));	
   	}

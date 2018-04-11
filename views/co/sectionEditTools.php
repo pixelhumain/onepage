@@ -15,7 +15,7 @@
     		margin-left:-15px;
     		margin-right: -15px;
     		margin-bottom: 10px;
-    		padding:80px 15px 10px 15px !important;
+    		padding:10px 15px 10px 15px !important;
     		width:39%;
     		z-index:5;
     		background-color: white;
@@ -46,8 +46,8 @@
     		max-height: 100%;
 			overflow-y: auto;
     		background-color:white;
-    		z-index:3;
-    		padding:85px 15px 10px 15px;
+    		z-index:3000;
+    		padding:15px 15px 10px 15px;
     		display:none;
     	}
 
@@ -111,7 +111,7 @@
 
     	<div class="col-md-12 col-sm-12 no-padding" id="static-head-tools">
 	    	<h5 class="pull-left"><i class="fa fa-angle-down"></i> <i class="fa fa-cogs"></i> Editer la section</h5>
-	    	<button class="btn btn-danger pull-right margin-left-5 btn-close-edition-tools"><i class="fa fa-times"></i></button>
+	    	<button class="btn btn-danger pull-right margin-left-5 btn-close-edition-tools" style="padding: 9px;"><i class="fa fa-times"></i></button>
 	    	<button class="btn btn-success pull-right btn-save-edition-tools"><i class="fa fa-save"></i> Enregistrer</button>
 	    </div>
 
@@ -214,12 +214,12 @@
 
 	    
     </div>
-
+<!-- 
 <div class="scroll-top page-scroll">
     <a class="btn btn-primary" href="#page-top">
         <i class="fa fa-chevron-up"></i>
     </a>
-</div>
+</div> -->
 
     <script type="text/javascript" >
     var typeEl = "<?php echo $type; ?>";
