@@ -63,9 +63,9 @@
                     </div>
                     <div class="footer-col col-md-4">
                         <h3>A propos de nous</h3>
-                        <?php echo @$element["shortDescription"] ? @$element["shortDescription"] 
-                        											: "<i class='fa fa-ban'></i> Aucune description"; ?>
-                        
+                        <?php echo @$element["shortDescription"] ? 
+                        		   @$element["shortDescription"] : 
+                        		   "<i class='fa fa-ban'></i> Aucune description"; ?>                  
                     </div>
                 </div>
             </div>

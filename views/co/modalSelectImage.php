@@ -1,43 +1,4 @@
-<style type="text/css">
-    #modalSelectImgNewSection .modal-body {
-        display: inline-block;
-        width: 100%;
-    }
-    
-    #modalSelectImgNewSection{
-        top:100px;
-        z-index: 2;
-    }
-    #modalSelectImgNewSection .select-photo img.img-responsive{
-        height:115px;
-        width:100%;
-        border:2px solid transparent;
-    }
-    #modalSelectImgNewSection .select-photo .btn-select-img-new-section:hover img.img-responsive,
-    #modalSelectImgNewSection .select-photo .ctn-img.selected img.img-responsive{
-        border:4px solid #4285f4;
-    }
-
-
-    #modalSelectImgNewSection .select-photo .fa-check{
-        position: absolute;
-        top:38%;
-        left:38%;
-        border-radius: 40px;
-        padding:10px;
-        display: none;
-    }
-
-    #modalSelectImgNewSection .select-photo .ctn-img.selected .fa-check{
-        display: inline;
-    }
-
-
-    #modalSelectImgNewSection .select-photo{
-        max-height:353px;
-        overflow-y: auto;
-    }
-</style>
+<style type="text/css"></style>
 
 <div class="modal fade" tabindex="-1" role="dialog" id="modalSelectImgNewSection">
   <div class="modal-dialog modal-lg">
@@ -62,15 +23,7 @@
                                             array("folder"=>new MongoRegex("/.*{$folder}.*/i"),
                                                   "doctype" => "image"), array("created"=>-1));
             $myAlbums = @$element["documents"]["image"];
-
-           // var_dump($myAlbums); echo "<br><br>";
-           // var_dump($myPhotos);
         ?>
-        <div class="col-xs-12 select-gallery hidden">
-            <?php //foreach ($myAlbums as $name => $album) { ?>
-                <!-- <button class="btn btn-link"><i class="fa fa-folder"></i> <?php //echo $name; ?></button><br> -->
-            <?php //} ?>
-        </div>
         <div class="col-xs-12 select-photo">
             <?php foreach ($myPhotos as $key => $photo) { ?>
                 <?php $imagePath = Yii::app()->baseUrl."/".Yii::app()->params['uploadUrl'].
@@ -101,7 +54,10 @@
                 data-id-room="">
             <i class="fa fa-check"></i> Valider
         </button>
-        <button class="btn btn-link letter-red pull-right btn-sm margin-top-10 margin-right-10" id="btn-cancel" data-dismiss="modal"> Annuler</button>
+        <button class="btn btn-link letter-red pull-right btn-sm margin-top-10 margin-right-10" 
+                id="btn-cancel" data-dismiss="modal"> 
+                Annuler
+        </button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

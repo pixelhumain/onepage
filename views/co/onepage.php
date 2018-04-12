@@ -1,22 +1,4 @@
-
 <?php 
-	
-    HtmlHelper::registerCssAndScriptsFiles(
-		array('/js/news/index.js', 
-			  '/js/default/editInPlace.js',
-			  '/js/default/directory.js',
-			  '/js/scopes/scopes.js',
-			  //'/js/default/dataHelpers.js',
-			  ), 
-			$this->module->getParentAssetsUrl());
-
-
-	HtmlHelper::registerCssAndScriptsFiles(
-		array(//'/plugins/showdown/showdown.min.js',
-			  '/plugins/to-markdown/to-markdown.js',
-			  ), Yii::app()->request->baseUrl);
-
-
 	$themeParams = CO2::getThemeParams();
 
 	$imgDefault = $this->module->assetsUrl.'/images/news/profile_default_l.png';
@@ -44,7 +26,6 @@
  	$hash = @$element["slug"] ? "#".$element["slug"] :
 								"#page.type.".$type.".id.".$element["_id"];
    
-	//$hashOnepage = $hash.".".$themeParams["onepageKey"][0];
 	$hashOnepage = "#page.type.".$type.".id.".$element["_id"].".view.".$themeParams["onepageKey"][0];
 
     $typeItemHead = $typeItem;
@@ -56,89 +37,31 @@
 
     $useBorderElement = false;
 ?>
-<style>
-	#description .item-desc{
-		width:50%!important;
-		margin-left: 25%!important;
-	}
 
-	.btn-onepage-quickview{
-		position: relative;
-		left: unset;
-		top: unset;
-		z-index: unset;
-	}
-
-	#btn-onepage-main-menu {
-	    position: relative;
-	    top: unset;
-	    left: unset;
-	    border-radius: 1px;
-	    letter-spacing: 2px;
-	    z-index: 50;
-	}
-	.dropdown.open .dropdown-onepage-main-menu{
-		position: unset;
-	}
-	.btn-link.btn-central-tool,
-	.btn-link.btn-create-section{
-		border-radius: 50px;
-		padding:10px 15px;
-		margin-top:-22px;
-		border:none!important;
-	}
-	
-	.btn-link.btn-central-tool:hover,
-	.btn-link.btn-create-section:hover,
-	.btn-link.btn-central-tool:focus,
-	.btn-link.btn-create-section:focus{
-		background-color: rgba(255, 255, 255, 0.8);
-		text-decoration:none;
-		border:none!important;
-	}
-
-	.btn.btn-tool-free-sec{
-		background-color: rgba(255, 255, 255, 0.6);
-		border-radius: 15px;
-		padding:5px 10px;
-		border:none!important;
-	}
-	.btn.btn-tool-free-sec:hover,
-	.btn.btn-tool-free-sec:focus{
-		background-color: rgba(255, 255, 255, 0.8) !important;
-		text-decoration:none;
-		border:none!important;
-	}
-
-	.ctn-tool-create-item{
-		padding-top:15px;
-	}
-</style>
+<style></style>
 
 <div>
-	
 
-	<!-- BANNER Section -->
+	<!-- MENU TOP -->
     <?php $this->renderPartial('menuTop', 
     							array( "layoutPath"=>$layoutPath , 
-                                        "subdomain"=>"", //$subdomain,
-                                        "subdomainName"=>"", //$subdomainName,
-                                        "mainTitle"=>"", //$mainTitle,
-                                        "placeholderMainSearch"=>"", //$placeholderMainSearch,
+                                        "subdomain"=>"",
+                                        "subdomainName"=>"",
+                                        "mainTitle"=>"",
+                                        "placeholderMainSearch"=>"",
                                         "type"=>@$type,
                                         "me" => $me,
                                         "edit" => $edit,
                                         "element" => $element,
     								   "hashOnepage" => @$hashOnepage) ); 
 	?>
+
 	<!-- BANNER Section -->
-    
     <?php $this->renderPartial('banner', 
     							array( "element" => $element )); 
 	?>
 
 	<!-- HEADER Section -->
-    
     <?php $this->renderPartial('header', 
     							array( "element" => $element,
     								   "edit" => @$edit,
@@ -159,9 +82,9 @@
 	    	<span  id="shortDescriptionAboutEdit"><?php echo (!empty(@$element["shortDescription"])) ? @$element["shortDescription"] : ""; ?></span>
 	  	</span>
     <?php } ?>
+
+
     <!-- DESCRIPTION Section -->
-
-
     <?php   
     		$desc = array( array("shortDescription"=>@$element["description"],
     							 "useMarkdown" => true), );
@@ -188,21 +111,19 @@
 
 
 	<!-- GALLERY Section -->
+	<?php $this->renderPartial('sectionBefore', 
+	                                array(  "element" => @$element,
+	                                        "edit" => @$edit,
+	                                        "sectionKey" => "gallery",
+	                                        "useBorderElement" => @$useBorderElement));
+	?>
 
-
-<?php $this->renderPartial('sectionBefore', 
-                                    array(  "element" => @$element,
-                                            "edit" => @$edit,
-                                            "sectionKey" => "gallery",
-                                            "useBorderElement" => @$useBorderElement));
-?>
-
-<?php $this->renderPartial('createFreeSection', 
-                                    array(  "sectionShadow" => @$sectionShadow,
-                                            "element" => $element,
-                                            "edit" => @$edit,
-                                            "sectionKey" => "gallery"));
-?>
+	<?php $this->renderPartial('createFreeSection', 
+	                                array(  "sectionShadow" => @$sectionShadow,
+	                                        "element" => $element,
+	                                        "edit" => @$edit,
+	                                        "sectionKey" => "gallery"));
+	?>
 
 	<?php if(@$element["onepageEdition"]["#gallery"]["hidden"] != "true" || @$edit == true){ ?>
 	<section id="gallery" class="bg-white row shadow">
@@ -234,33 +155,30 @@
 	<?php } ?>
 
     <!-- EVENTS Section -->
-
     <?php   if(@$events && sizeOf(@$events)>0){
     			foreach ($events as $key => $value)
     				if(Event::isPast($value)) unset($events[$key]);
     			
     			if(sizeOf(@$events)>0)
     			$this->renderPartial('section', 
-    								array(  "element" => $element,
-    								   		"items" => $events,
-											"sectionKey" => "events",
-											"sectionTitle" => "ÉVÉNEMENTS À VENIR",
-											"sectionShadow" => true,
-											"msgNoItem" => "Aucun événement à afficher",
-											"imgShape" => "square",
-											"edit" => $edit,
-											"useDesc" => true,
-											"useBorderElement"=>$useBorderElement,
-
-											"styleParams" => array(	"bgColor"=>"#f1f2f6",
-															  		"textBright"=>"dark",
-															  		"fontScale"=>3),
-											));
+	    								array(  "element" => $element,
+	    								   		"items" => $events,
+												"sectionKey" => "events",
+												"sectionTitle" => "ÉVÉNEMENTS À VENIR",
+												"sectionShadow" => true,
+												"msgNoItem" => "Aucun événement à afficher",
+												"imgShape" => "square",
+												"edit" => $edit,
+												"useDesc" => true,
+												"useBorderElement"=>$useBorderElement,
+												"styleParams" => array(	"bgColor"=>"#f1f2f6",
+																  		"textBright"=>"dark",
+																  		"fontScale"=>3),
+												));
     		} 
     ?>
 
     <!-- PROJETS Section -->
-
     <?php   if(@$projects && sizeOf(@$projects)>0){
 
 	    		$sectionTitle = "MES PROJETS";
@@ -277,7 +195,6 @@
 												"imgShape" => "square",
 												"useDesc" => false,
 												"useBorderElement"=>$useBorderElement,
-
 												"styleParams" => array(	"bgColor"=>"#FFF",
 																  		"textBright"=>"dark",
 																  		"fontScale"=>3),
@@ -287,7 +204,6 @@
 
 	
 	<!-- COMMUNAUTE Section -->
-
     <?php
     		$sectionTitle = "COMMUNAUTÉ";
     	    if(@$typeItem == "organizations") $sectionTitle = "NOS MEMBRES";
@@ -307,17 +223,14 @@
 											"useDesc" => false,
 											"useBorderElement"=>$useBorderElement,
 											"countStrongLinks"=>@$countStrongLinks,
-
 											"styleParams" => array(	"bgColor"=>"#FFF",
 															  		"textBright"=>"dark",
 															  		"fontScale"=>3),
 											));
     ?>
 
-    
-
+   
 	<!-- COMMUNAUTE Section -->
-
     <?php
     		$sectionTitle = "COMMUNAUTÉ";
     	    if(@$typeItem == "organizations") $sectionTitle = "NOUS SOMMES MEMBRES";
@@ -337,7 +250,6 @@
 											"useDesc" => false,
 											"useBorderElement"=>$useBorderElement,
 											"countStrongLinks"=>@$countStrongLinks,
-
 											"styleParams" => array(	"bgColor"=>"#FFF",
 															  		"textBright"=>"dark",
 															  		"fontScale"=>3),
@@ -345,7 +257,6 @@
     ?>
 
     <!-- RESSOURCES Section -->
-
     <?php	$sectionTitle = "RESSOURCES";
     	    if(@$typeItem == "citoyens") $sectionTitle = "MES RESSOURCES";
     	    else 						 $sectionTitle = "NOS RESSOURCES";
@@ -371,7 +282,6 @@
 												"imgShape" => "square",
 												"useDesc" => false,
 												"useBorderElement"=>$useBorderElement,
-
 												"styleParams" => array(	"bgColor"=>"#FFF",
 																  		"textBright"=>"dark",
 																  		"fontScale"=>3),
@@ -381,7 +291,6 @@
     ?>
     
     <!-- CLASSIFIED Section -->
-
     <?php 	$classified = Element::getByIdAndTypeOfParent( 
 									Classified::COLLECTION, (string)$element["_id"], 
 									$typeItem, array("updated"=>-1));
@@ -403,7 +312,6 @@
 												"imgShape" => "square",
 												"useDesc" => false,
 												"useBorderElement"=>$useBorderElement,
-
 												"styleParams" => array(	"bgColor"=>"#FFF",
 																  		"textBright"=>"dark",
 																  		"fontScale"=>3),
@@ -413,7 +321,6 @@
     ?>
     
     <!-- POI Section -->
-
     <?php 	$poi = Element::getByIdAndTypeOfParent( 
 									Poi::COLLECTION, (string)$element["_id"], 
 									$typeItem, array("updated"=>-1));
@@ -435,7 +342,6 @@
 												"imgShape" => "square",
 												"useDesc" => false,
 												"useBorderElement"=>$useBorderElement,
-
 												"styleParams" => array(	"bgColor"=>"#FFF",
 																  		"textBright"=>"dark",
 																  		"fontScale"=>3),
@@ -446,7 +352,6 @@
 
     
     <!-- FOLLOWERS Section -->
-
     <?php
     		$sectionTitle = "FOLLOWERS";
     	    if(@$typeItem == "citoyens") $sectionTitle = "MES ABONNÉS";
@@ -465,7 +370,6 @@
 											"useDesc" => false,
 											"useBorderElement"=>$useBorderElement,
 											"countStrongLinks"=>@$countStrongLinks,
-
 											"styleParams" => array(	"bgColor"=>"#FFF",
 															  		"textBright"=>"dark",
 															  		"fontScale"=>3),
@@ -474,7 +378,6 @@
 
 
     <!-- NOS VALEURS Section -->
-
 	<?php if (false && ($type==Project::COLLECTION) && !empty($element["properties"]["chart"])){ ?>
 	<section id="projects-values" class="portfolio shadow">
 		<div class="container">
@@ -485,17 +388,15 @@
 	        </div>
             <div class="row">
         		<div class="no-padding col-md-8 col-md-offset-2">
-					<?php
-
-						if(empty($element["properties"]["chart"])) $element["properties"]["chart"] = array();
-						$this->renderPartial('../project/pod/projectChart',array(
-												"itemId" => (string)$element["_id"], 
-												"itemName" => $element["name"], 
-												"properties" => $element["properties"]["chart"],
-												"admin" =>$edit,
-												"isDetailView" => 1,
-												"openEdition" => @$openEdition,
-												"chartAlone" => true));
+					<?php if(empty($element["properties"]["chart"])) $element["properties"]["chart"] = array();
+						  $this->renderPartial('../project/pod/projectChart',
+												array(	"itemId" => (string)$element["_id"], 
+														"itemName" => $element["name"], 
+														"properties" => $element["properties"]["chart"],
+														"admin" =>$edit,
+														"isDetailView" => 1,
+														"openEdition" => @$openEdition,
+														"chartAlone" => true));
 					?>						  
 				</div>
 			</div>
@@ -504,11 +405,7 @@
 	<?php } ?>
 
 
-
-
 	<!-- TIMELINE Section -->
-
-
 	<?php $this->renderPartial('sectionBefore', 
 	                                    array(  "element" => @$element,
 	                                            "edit" => @$edit,
@@ -530,7 +427,6 @@
 				    data-id="#timeline">
 		        	<i class="fa fa-cog"></i>
 		    </button>
-
 	        <?php $this->renderPartial('btnShowHide', 
 	                                    array(  "element" => $element,
 	                                            "sectionKey" => "timeline"));
@@ -577,7 +473,6 @@
                             "openEdition" => $openEdition,
                             "iconColor" => $iconColor
                         );
-
     	//$this->renderPartial('../../../co2/views/cooperation/pod/modals', $paramsCoop ); 
     ?>
 
@@ -593,227 +488,33 @@
 </div>
 
 
-<?php $this->renderPartial('sectionEditTools', 
-		array("type"=>Element::getControlerByCollection($typeItem),
-			  "id"=>$element["_id"],
-			  "element"=>$element)); 
+<?php if(@$edit == true)	
+		$this->renderPartial('sectionEditTools', 
+			array("type"=>Element::getControlerByCollection($typeItem),
+				  "id"=>$element["_id"],
+				  "element"=>$element)); 
 ?>
 
 <script type="text/javascript" >
     
 var isOnepage = true;
-var typeItem = "<?php echo @$typeItem; ?>";;
+var typeItem = "<?php echo @$typeItem; ?>";
 var edit = "<?php echo @$edit; ?>";
+
 var elementName = "<?php echo @$element["name"]; ?>";
+var elementId = "<?php echo (string)$element["_id"]; ?>";
+var elementType = "<?php echo @$element["type"]; ?>";
+
 var mapData = <?php echo json_encode(@$mapData) ?>;
 var params = <?php echo json_encode(@$params) ?>;
 var contextDataOnepage = <?php echo json_encode( Element::getElementForJS(@$element, @$type) ); ?>; 
 var contextData = "";
-//initMetaPage(contextData.name,contextData.shortDescription,contextData.profilImageUrl);
-//alert("context");
 var openEdition = "<?php echo (string)@$element["openEdition"]; ?>";
-
 var parentModuleName = "<?php echo Yii::app()->params["module"]["parent"]; ?>";
-
-//console.dir("allparams", params);
 var currentIdSection = "";
+
 jQuery(document).ready(function() {
-	console.log('contextDataOnepage', contextDataOnepage);
-	$('.progressTop').val(40);
-
-	initKInterface({"affixTop":0});
-	//$("#mainNav").addClass("affix");
-	initPageInterface();
-
-	//create <li> in onepage main menu
-	initMenuOnepage();
-
-	//init markdown display
-	initMarkdownDescription();
-	
-	//change title in browser
-	$("#main-page-name, title").html(elementName);
-
-	if(edit==true)
-		bindDynFormEditable();
-
-	//console.log("body width", $("body").width());
-	if($("body").width()>767)
-		$("#btn-onepage-main-menu").trigger("click");
-
-	//activate btn to show all text of Description (max hide by default)
-    $(".btn-full-desc").click(function(){
-        var sectionKey = $(this).data("sectionkey");
-        if($("section#"+sectionKey+" .item-desc").hasClass("fullheight")){
-            $("section#"+sectionKey+" .item-desc").removeClass("fullheight");
-            $(this).html("<i class='fa fa-plus-circle'></i>");
-        }else{
-            $("section#"+sectionKey+" .item-desc").addClass("fullheight");
-            $(this).html("<i class='fa fa-minus-circle'></i>");
-        }
-    });
-
-	Sig.showMapElements(Sig.map, mapData);
-
-	//load section GALLERY
-	var url = "gallery/index/type/<?php echo (string)$element["type"] ?>/id/<?php echo (string)$element["_id"] ?>";
-	ajaxPost('#gallery-page', baseUrl+'/'+parentModuleName+'/'+url, null, 
-		function(){},"html");
-
-	//load section TIMELINE
-	var url = "news/index/type/<?php echo $typeItem; ?>/id/<?php echo (string)$element["_id"] ?>?isFirst=1&";
-	ajaxPost('#timeline-page', baseUrl+'/'+parentModuleName+'/'+url+"renderPartial=true&tpl=co2&nbCol=2", null, 
-		function(){
-			contextData = contextDataOnepage;
-			$(window).bind("scroll",function(){ 
-			    if(!loadingData && !scrollEnd){
-			          var heightWindow = $("#onepage").height() - $("#mapCanvasBg").height();// - $("body").height();
-			          //console.log("scrolling", $(this).scrollTop(), ">=", heightWindow - 300);
-			          if( $(this).scrollTop() >= heightWindow - 300){
-			            loadStreamOnePage(currentIndexMin+indexStep, currentIndexMax+indexStep);
-			          }
-			    }
-			});
-		},"html");
-
-	$('.progressTop').val(100);
-	$(".progressTop").fadeOut(500);
+	initOnepageInterface();
 });
 
-//create <li> in onepage main menu
-function initMenuOnepage(){
-	$.each($("#onepage section"), function(){
-		var id = $(this).attr("id");
-		var title = $(this).find("h2.section-title span.sec-title").html();
-		if(typeof title != "undefined"){
-			$("ul#menu-onepage").append(
-			'<li><a href="javascript:" data-target="#'+id+'"><i class="fa fa-angle-right"></i> '+title+'</a></li>');
-		}
-	});
-
-	//activate clicking
-	$(".dropdown-onepage-main-menu li a").click(function(e){
-		e.stopPropagation();
-		var target = $(this).data("target");
-		KScrollTo(target);
-	});
-}
-
-function initMarkdownDescription() {
-	
-	var descHtml = "<center><i>"+trad.notSpecified+"</i></center>";
-
-	$.each($(".descriptionMarkdown"), function(){
-		var sectionK = $(this).data("key");
-		var item = $(this).data("item");
-		descHtml = "<center><i>"+trad.notSpecified+"</i></center>";
-		
-		if($(this).html().length > 0){
-			descHtml = dataHelper.markdownToHtml($(this).html()) ;
-			console.log("initMarkdown", descHtml, 
-						"section#"+sectionK+" .portfolio-item.item-"+item+" .item-desc");
-			$("section#"+sectionK+" .portfolio-item.item-"+item+" .item-desc").html(descHtml);
-		}
-	});
-	
-}
-
-
-var loading = 	"<li class='loader shadow2 letter-blue text-center margin-bottom-50' style='width: 60%;margin-left: 20%;'>"+
-					"<span style=''>"+
-						"<i class='fa fa-spin fa-circle-o-notch'></i> "+
-						"<span>"+trad.currentlyloading+" ...</span>" + 
-				"</li>";
-
-function loadStreamOnePage(indexMin, indexMax){ mylog.log("LOAD STREAM ONEPAGE"); //loadLiveNow
-	loadingData = true;
-	currentIndexMin = indexMin;
-	currentIndexMax = indexMax;
-	
-	if(typeof dateLimit == "undefined") dateLimit = 0;
-
-	$("#news-list").append(loading);
-
-	//isLive = isLiveBool==true ? "/isLive/true" : "";
-	var url = "news/index/type/"+typeItem+"/id/"+contextData.id+"/date/"+dateLimit+"?tpl=co2&nbCol=2&renderPartial=true";
-	$.ajax({ 
-        type: "POST",
-        url: baseUrl+"/"+moduleId+'/'+url,
-        data: { indexMin: indexMin, 
-        		indexMax:indexMax, 
-        		renderPartial:true 
-        	},
-        success:
-            function(data) {
-                if(data){ 
-                	$("#news-list").find(".loader").remove();
-                	$("#news-list").append(data);
-                	//if($("#noMoreNews").length<=0)
-						//$("#news-list").append(loading);
-                	//bindTags();
-					
-				}
-				loadingData = false;
-				$(".stream-processing").hide();
-            },
-        error:function(xhr, status, error){
-            loadingData = false;
-            $("#news-list").html("erreur");
-        },
-        statusCode:{
-                404: function(){
-                	loadingData = false;
-                    $("#news-list").html("not found");
-            }
-        }
-    });
-}
-
-
-function initPageInterface(){
-
-	$("#second-search-bar").addClass("input-global-search");
-
-    $("#main-btn-start-search, .menu-btn-start-search").click(function(){
-        startGlobalSearch(0, indexStepGS);
-    });
-
-    $("#second-search-bar").keyup(function(e){ console.log("keyup #second-search-bar");
-        $("#input-search-map").val($("#second-search-bar").val());
-        if(e.keyCode == 13){
-            search.value=$(this).val();
-            myScopes.type="open";
-            myScopes.open={};
-            urlCtrl.loadByHash("#search");
-            //startGlobalSearch(0, indexStepGS);
-         }
-    });
-    
-    $("#input-search-map").keyup(function(e){ console.log("keyup #input-search-map");
-        $("#second-search-bar").val($("#input-search-map").val());
-        if(e.keyCode == 13){
-            startGlobalSearch(0, indexStepGS);
-         }
-    });
-
-    $("#menu-map-btn-start-search").click(function(){
-        $("#second-search-bar").val($("#input-search-map").val());
-        startGlobalSearch(0, indexStepGS);
-    });
-
-    $(".social-main-container").mouseenter(function(){
-    	$(".dropdown-result-global-search").hide();
-    });
-
-    $(".tooltips").tooltip();
-   
-    $('.sub-menu-social').affix({
-      offset: {
-          top: 320
-      }
-    });
-    //$(".dropdown-result-global-search").hide();
-    
-
-}
 </script>

@@ -14,20 +14,6 @@
                 </div>
 
                 <div class="col-md-6 col-sm-4 col-xs-12 text-center no-padding" style="margin-top:-20px;">
-                	
-
-					<?php if(@Yii::app()->session["userId"]){ ?>
-						<div class="blockUsername">
-			                	<?php $this->renderPartial('linksMenu', 
-			            			array("linksBtn"=>$linksBtn,
-			            					"elementId"=>(string)$element["_id"],
-			            					"elementType"=>$type,
-			            					"elementName"=> $element["name"],
-			            					"openEdition" => $openEdition) 
-			            			); 
-			            		?>
-						</div>
-					<?php } ?>
 
                 	<?php 	if(@$element["profilMediumImageUrl"] && !empty($element["profilMediumImageUrl"]))
 								 $images=array(

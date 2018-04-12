@@ -1,13 +1,12 @@
 
 <?php $this->renderPartial('sectionBefore', 
-                                    array(  "element" => @$element,
-                                            "edit" => @$edit,
-                                            "sectionKey" => @$sectionKey,
-                                            "useBorderElement" => @$useBorderElement));
+                                array(  "element" => @$element,
+                                        "edit" => @$edit,
+                                        "sectionKey" => @$sectionKey,
+                                        "useBorderElement" => @$useBorderElement));
 ?>
 
 <?php 
-    //echo $sectionKey." "; var_dump(@$element["onepageEdition"]["#".@$sectionKey]); exit;
     if(@$element["onepageEdition"]["#".@$sectionKey]["hidden"] == "true" && @$edit == false) return;
 
     $nbMax = @$nbMax ? $nbMax : 12;
@@ -29,54 +28,17 @@
 
     $align = $nbItem > 2 && $imgShape == "square" ? "left" : "center";
     $align = "center";
-    //$textBright = @$styleParams["textBright"] ? @$styleParams["textBright"] : "light";
 
 ?>
 
 <style>
-
-        <?php if($nbItem >=  8){ ?>
+    <?php if($nbItem >=  8){ ?>
         #onepage section#<?php echo @$sectionKey; ?> .portfolio-item .item-name,
         #onepage section#<?php echo @$sectionKey; ?> .portfolio-item .item-desc,
         #onepage section#<?php echo @$sectionKey; ?> .portfolio-item .item-address{
             font-size:0.9em;
         }
-        <?php } ?>
-        .portfolio.new-section{
-            display: none;
-            margin-top: -20px !important;
-        }
-        .ctn-new-sec{
-            margin-bottom: 40px;
-        }
-        .portfolio.new-section .md-ctn{
-            font-size: 12px;
-        }
-        .portfolio.new-section .md-editor{
-            margin-top:10px;
-        }
-
-        .popup-conf-delete-section,
-        .popup-conf-delete-item,
-        .btn-cancel-gallery,
-        .btn-cancel-image{
-            display: none;
-        }
-
-        .item-desc img{
-            max-width: 100%!important;
-        }
-
-        .img-section{
-            max-height: 300px;
-        }
-
-        input.title-new-sec{
-            text-transform: uppercase;
-            font-weight: bold;
-            font-size:16px;
-        }
-
+    <?php } ?>
 </style>
 
 <?php $this->renderPartial('createFreeSection', 
@@ -86,9 +48,7 @@
                                             "sectionKey" => @$sectionKey));
 ?>
 
-<?php 
-    //var_dump(strpos( @$sectionKey, "free-section-"));
-    $freeSec = (strpos(@$sectionKey, "free-section-") !== false) ? "free-section" : ""; ?>
+<?php $freeSec = (strpos(@$sectionKey, "free-section-") !== false) ? "free-section" : ""; ?>
 
 <section id="<?php echo @$sectionKey; ?>" 
          class="portfolio <?php if(@$sectionShadow==true) echo 'shadow'; ?> <?php echo @$freeSec; ?>">
@@ -149,21 +109,22 @@
         <?php } ?>
 
         <div class="row">
-    	<?php $cnt=0; 
-            if(!empty($items))
-    		foreach ($items as $key => $item) { $cnt++; 
-    		  	if($cnt<=$nbMax){
-                    
-                    if(@$item["galleryName"]!="" && sizeof($items)==1) $col="col-xs-12";
-                    //récupération du type de l'element
-                    $typeItem = (@$item["typeSig"] && $item["typeSig"] != "") ? $item["typeSig"] : "";
-                    if($typeItem == "") $typeItem = @$item["type"] ? $item["type"] : "item";
-                    if($typeItem == "people") $typeItem = "citoyens";
+        	<?php $cnt=0; 
+                if(!empty($items))
+        		foreach ($items as $key => $item) { $cnt++; 
+        		  	if($cnt<=$nbMax){
+                        
+                        if(@$item["galleryName"]!="" && sizeof($items)==1) $col="col-xs-12";
+                        //récupération du type de l'element
+                        $typeItem = (@$item["typeSig"] && $item["typeSig"] != "") ? $item["typeSig"] : "";
+                        if($typeItem == "") $typeItem = @$item["type"] ? $item["type"] : "item";
+                        if($typeItem == "people") $typeItem = "citoyens";
 
-                    //icon et couleur de l'element
-                    $icon = Element::getFaIcon($typeItem) ? Element::getFaIcon($typeItem) : "";
-                    $iconColor = Element::getColorIcon($typeItem) ? Element::getColorIcon($typeItem) : "";
-    	?>
+                        //icon et couleur de l'element
+                        $icon = Element::getFaIcon($typeItem) ? Element::getFaIcon($typeItem) : "";
+                        $iconColor = Element::getColorIcon($typeItem) ? Element::getColorIcon($typeItem) : "";
+        	?>
+            
     		<div class="<?php echo $col; ?> portfolio-item item-<?php echo $key; ?> text-<?php echo $align; ?>">
 
                 <?php if($typeItem != "item"){ ?>
