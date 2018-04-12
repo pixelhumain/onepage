@@ -359,8 +359,9 @@
 
 .dropdown-onepage-main-menu{
 	position: fixed;
-	top: 85px;
-	left: 10px;
+	top: 124px;
+	left: unset;
+	right: 195px;
 	max-height:400px;
 	/*width:200px;*/
 	background-color:transparent;
@@ -378,10 +379,14 @@
 
 .dropdown-onepage-main-menu .dropdown-menu li a {
 	text-transform: uppercase;
+	width: 200px;
+	max-width: 200px;
+	font-size: 12px;
 }
 
 .arrow_box:after, .arrow_box:before {
 	left: 19px;
+	display: none;
 }
 header, .header{
 	/*margin-top: 48px;*/
@@ -556,6 +561,12 @@ header, .header{
 .btn-hide-section,
 .btn-delete-free-section{
 	margin-top:-20px;
+	padding: 8px;
+	border-radius: 50px;
+	height: 30px;
+	width: 30px;
+	border: none;
+	box-shadow: none;
 }
 #onepage-edition-tools{
 	width:40%;
@@ -661,7 +672,7 @@ a.link-submenu-header:active{
     position: absolute !important;
     top: 80px;
     left: inherit;
-    background-color: white;
+    background-color: rgba(255,255,255,0.5);
     border: 1px solid transparent;
     -webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
     box-shadow: 0 6px 12px rgba(0,0,0,.175);
@@ -697,7 +708,7 @@ a.link-submenu-header:active{
 }
 
 #mainNav {
-    background: rgba(255, 255, 255, 0) !important;
+    background: rgba(255, 255, 255, 1) !important;
     box-shadow: none;
 }
 .main-container{
@@ -871,3 +882,11 @@ a.link-submenu-header:active{
     padding: 10px;
     width: 100%;
 }  
+
+/* MAIN MENU */
+
+.btn-mainmenu-onepage.btn-link{
+	font-size: 13px;
+	color:black;
+}
+

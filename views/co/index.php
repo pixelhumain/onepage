@@ -102,19 +102,21 @@
     /* ***********************
         LIB FROM THIS MODULE (ONEPAGE)
     ************************ */
-    $cssAnsScriptFilesModule = array('/css/onepage.css', '/js/onepage.js');
+    $cssAnsScriptFilesModule = array('/css/onepage.css', '/js/onepage.js', '/js/onepage_edit.js');
     HtmlHelper::registerCssAndScriptsFiles($cssAnsScriptFilesModule, $this->module->getAssetsUrl());
         
 ?>
 
 
 <?php 
+    /* INCLUDE JS TRADUCTION */
     $parentModuleId = ( @Yii::app()->params["module"]["parent"] ) ?  
                          Yii::app()->params["module"]["parent"] : $this->module->id;
 
     Yii::app()->getClientScript()->registerScriptFile(
             Yii::app() -> createUrl($parentModuleId."/default/view/page/trad/dir/..|translation/layout/empty"));
 
+    /* INIT VARIABLES */
     $CO2DomainName = isset(Yii::app()->params["CO2DomainName"]) ? 
                            Yii::app()->params["CO2DomainName"] : "CO2";
 
@@ -169,6 +171,7 @@
 			        							   "me"=>$me,
 			        							   "edit"=>@$edit,
 			        							   "openEdition"=>true,
+                                                   "noEdit" => $noEdit,
 			        							   "layoutPath" => $layoutPath)); ?>
 		</div>
 	</div>

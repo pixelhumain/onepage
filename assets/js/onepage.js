@@ -19,6 +19,9 @@ function initOnepageInterface(){
     //init markdown display
     initMarkdownDescription();
 
+    //change css to display user-configuration
+    initOnepage(onepageEdition);
+
     if(edit==true)
         bindDynFormEditable();
 
@@ -55,16 +58,22 @@ function initMenuOnepage(){
 		var title = $(this).find("h2.section-title span.sec-title").html();
 		if(typeof title != "undefined"){
 			$("ul#menu-onepage").append(
-			'<li><a href="javascript:" data-target="#'+id+'"><i class="fa fa-angle-right"></i> '+title+'</a></li>');
+			'<li><a href="javascript:" data-target="#'+id+'" class="elipsis"><i class="fa fa-angle-right"></i> <span class="labl">'+title+'</span></a></li>');
 		}
 	});
 
 	//activate clicking
 	$(".dropdown-onepage-main-menu li a").click(function(e){
-		e.stopPropagation();
-		var target = $(this).data("target");
-		KScrollTo(target);
-	});
+        e.stopPropagation();
+        var target = $(this).data("target");
+        KScrollTo(target);
+    });
+
+    $(".dropdown-onepage-main-menu li a").mouseenter(function(e){
+        //e.stopPropagation();
+        var target = $(this).data("target");
+        KScrollTo(target);
+    });
 }
 
 function initMarkdownDescription() {

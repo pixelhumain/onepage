@@ -53,6 +53,7 @@
                                         "me" => $me,
                                         "edit" => $edit,
                                         "element" => $element,
+                                        "noEdit" => $noEdit,
     								   "hashOnepage" => @$hashOnepage) ); 
 	?>
 
@@ -126,7 +127,7 @@
 	?>
 
 	<?php if(@$element["onepageEdition"]["#gallery"]["hidden"] != "true" || @$edit == true){ ?>
-	<section id="gallery" class="bg-white row shadow">
+	<section id="gallery" class="bg-white row no-padding shadow">
 		<?php if(@$edit==true){ ?>
 			<button class="btn btn-default btn-sm pull-right margin-right-15 hidden-xs btn-edit-section" 
 				    data-id="#gallery">
@@ -512,6 +513,9 @@ var contextData = "";
 var openEdition = "<?php echo (string)@$element["openEdition"]; ?>";
 var parentModuleName = "<?php echo Yii::app()->params["module"]["parent"]; ?>";
 var currentIdSection = "";
+
+var onepageEdition = <?php echo @$element["onepageEdition"] ? json_encode(@$element["onepageEdition"]) : "{}" ?>;
+var urlImgBg = "<?php echo substr(Yii::app()->theme->baseUrl.'/assets/img/background-onepage/', 3); ?>";
 
 jQuery(document).ready(function() {
 	initOnepageInterface();

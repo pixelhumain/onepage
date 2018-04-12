@@ -1,10 +1,4 @@
-<?php 
-	/* ***********************
-        LIB FROM THIS MODULE (ONEPAGE)
-    ************************ */
-    $cssAnsScriptFilesModule = array('/js/onepage_edit.js');
-    HtmlHelper::registerCssAndScriptsFiles($cssAnsScriptFilesModule, $this->module->getAssetsUrl());
-?>
+
 
 <style></style>
 
@@ -109,11 +103,9 @@
 var typeEl = "<?php echo $type; ?>";
 var idEl = "<?php echo $id; ?>";
 var currentIdSection = "";
-var onepageEdition = <?php echo @$element["onepageEdition"] ? json_encode(@$element["onepageEdition"]) : "{}" ?>;
-var urlImgBg = "<?php echo substr(Yii::app()->theme->baseUrl.'/assets/img/background-onepage/', 3); ?>";
 
 jQuery(document).ready(function() { 
-	initOnepage(onepageEdition);		
+			
 });
 
 

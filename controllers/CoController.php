@@ -26,9 +26,9 @@ class CoController extends CommunecterController {
 	{
 		CO2Stat::incNbLoad("co2-onepage");
     
-    	if(Yii::app()->request->isAjaxRequest){
-	        echo $this->renderPartial("index");
-	    }else{
+    	//if(Yii::app()->request->isAjaxRequest){
+	    //    echo $this->renderPartial("index");
+	    //}else{
 	      	$element = Slug::getBySlug($slug); 
 	      	$element = Element::getByTypeAndId($element["type"], $element["id"]);
 	      	
@@ -49,8 +49,10 @@ class CoController extends CommunecterController {
 	      	if($noEdit==true)
 	      		$params["edit"] = false;
 
+	      	$params["noEdit"] = $noEdit;
+
 	        $this->layout = "//layouts/empty";
 	        $this->render("index", $params);
-	    }
+	    //}
   	}
 }
