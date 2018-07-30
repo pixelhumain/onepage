@@ -85,6 +85,7 @@ class OnepageModule extends CWebModule {
 			'citizenToolKit.models.*',
 			'ressources.models.*',
 			'places.models.*',
+			'eco.models.*',
 			Yii::app()->params["module"]["parent"].'.models.*',
 			Yii::app()->params["module"]["parent"].'.components.*',
 			$this->id.'.models.*',

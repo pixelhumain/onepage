@@ -10,6 +10,4 @@ class CustomAction extends CAction
 	    $this->getController()->render("custom",array("element"=>$el));
 	    
   	}
-
-
 }
