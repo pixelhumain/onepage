@@ -119,7 +119,7 @@ $this->renderPartial( "onepage.views.custom.demorun.cards" );
 <div class="col-xs-12 no-padding" id="customHeader" style="background-color: white">
   <div id="costumBanner" class="col-xs-12 col-sm-12 col-md-9 no-padding">
    <h1>DEMORUN<br/><span class="small">Une nouvelle interface Démo Pratique</span></h1>
-  <img class="img-responsive" src='<?php echo Yii::app()->session['custom']["assetsUrl"].Yii::app()->session['custom']["banner"]; ?>'> 
+  <img class="img-responsive" src='<?php echo @Yii::app()->session['custom']["assetsUrl"].Yii::app()->session['custom']["banner"]; ?>'> 
   </div>
   <div class="col-xs-12 col-sm-12 col-md-3 text-center padding-10" >
     <img class="img-responsive logoDescription" src='<?php echo Yii::app()->session['custom']["logo"]?>'> 
