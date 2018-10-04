@@ -1,7 +1,7 @@
 <?php
 class StumAction extends CAction
 {
-    public function run($slug, $noEdit=false) 
+    public function run($slug) 
 	{
 		CO2Stat::incNbLoad("co2-onepage");
     
