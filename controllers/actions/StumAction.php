@@ -1,5 +1,5 @@
 <?php
-class CustomAction extends CAction
+class StumAction extends CAction
 {
     public function run($slug, $noEdit=false) 
 	{
