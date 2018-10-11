@@ -17,9 +17,12 @@
     ex : emploi
     
 */
-if( @Yii::app()->session['custom']["welcomeTpl"] ){
+if( @$page ){
+    $this->renderPartial( $page, $params);
+}
+else if( @Yii::app()->session['custom']["welcomeTpl"] ){
     $this->renderPartial( Yii::app()->session['custom']["welcomeTpl"], 
-    						array("element"=>$element["el"],
+    						array("params"=>$element["el"],
     							  "type"=>$element["type"],
     							  "id"=>$element["id"] ) );
 } 

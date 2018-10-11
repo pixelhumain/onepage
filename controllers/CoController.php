@@ -20,6 +20,8 @@ class CoController extends CommunecterController {
 	    return array(
 	        'index'  => 'onepage.controllers.actions.IndexAction',
 	        'stum'  => 'onepage.controllers.actions.StumAction',
+	        'tags'  => 'onepage.controllers.actions.TagsAction',
+	        'zone'  => 'onepage.controllers.actions.ZoneAction',
 	    );
 	}
 
