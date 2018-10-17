@@ -49,6 +49,9 @@ $cssJS = array(
 );
 HtmlHelper::registerCssAndScriptsFiles($cssJS, Yii::app()->theme->baseUrl);
 
+$layoutPath = 'webroot.themes.'.Yii::app()->theme->name.'.views.layouts.';
+$me = isset(Yii::app()->session['userId']) ? Person::getById(Yii::app()->session['userId']) : null;
+$this->renderPartial( $layoutPath.'modals.CO2.mainMenu', array("me"=>$me) );
 
 ?>
 
@@ -358,7 +361,7 @@ HtmlHelper::registerCssAndScriptsFiles($cssJS, Yii::app()->theme->baseUrl);
 				cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
 				proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 				<div class="text-center margin-top-20">
-					<a href="javascript:;" data-form-type="organizations" class="btn-open-form btn btn-primary">Je suis Acteurs de la filière</a>
+					<a href="javascript:;" data-form-type="organization" class="btn-open-form btn btn-primary">Je suis Acteurs de la filière</a>
 				</div>
 				</div>
 			</div>
@@ -397,7 +400,7 @@ HtmlHelper::registerCssAndScriptsFiles($cssJS, Yii::app()->theme->baseUrl);
 				proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
 				<div class="text-center margin-top-20">
-					<a href="javascript:;"  data-form-type="organizations" class="btn-open-form btn btn-primary">Ajoutez Moi dans l'image</a>
+					<a href="javascript:;"  data-form-type="organization" class="btn-open-form btn btn-primary">Ajoutez Moi dans l'image</a>
 				</div>
 				</div>
 			</div>
@@ -407,25 +410,25 @@ HtmlHelper::registerCssAndScriptsFiles($cssJS, Yii::app()->theme->baseUrl);
 		    <div class="card col-xs-12 col-md-3">
 		          <h4 class="bold text-dark text-center padding-5">
 		              <i class="margin-5 fa fa-group"></i> ORGANISATIONS
-		              <br><span style="font-size: 1.8em"><?php echo count($organizations) ?></span>
+		              <br><span  class="homestead" style="font-size: 2.2em"><?php echo count($organizations) ?></span>
 		          </h4> 
 		    </div>
 		    <div class="card col-xs-12 col-md-3">
 		          <h4 class="bold text-dark text-center padding-5">
 		              <i class="margin-5 fa fa-calendar"></i> EVENTS
-		              <br><span style="font-size: 1.8em"><?php echo count($events) ?></span>
+		              <br><span  class="homestead" style="font-size: 2.2em"><?php echo count($events) ?></span>
 		          </h4> 
 		    </div>
 		    <div class="card col-xs-12 col-md-3">
 		          <h4 class="bold text-dark text-center padding-5">
 		              <i class="margin-5 fa fa-lightbulb-o"></i> PROJECTS
-		              <br><span style="font-size: 1.8em"><?php echo count($projects) ?></span>
+		              <br><span  class="homestead" style="font-size: 2.2em"><?php echo count($projects) ?></span>
 		          </h4> 
 		    </div>
 		    <div class="card col-xs-12 col-md-3">
 		          <h4 class="bold text-dark text-center padding-5">
 		              <i class="margin-5 fa fa-user"></i> PEOPLE
-		              <br><span style="font-size: 1.8em"><?php echo count($persons) ?></span>
+		              <br><span  class="homestead" style="font-size: 2.2em"><?php echo count($persons) ?></span>
 		          </h4> 
 		    </div>
 		</div>
@@ -443,7 +446,7 @@ HtmlHelper::registerCssAndScriptsFiles($cssJS, Yii::app()->theme->baseUrl);
 				cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
 				proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 				<div class="text-center margin-top-20">
-					<a href="javascript:;"  data-form-type="projects" class="btn-open-form btn bold" style="background-color: #E5344D; color:white;">Ajoutez un projet</a>
+					<a href="javascript:;"  data-form-type="project" class="btn-open-form btn bold" style="background-color: #E5344D; color:white;">Ajoutez un projet</a>
 				</div>
 				</div>
 			</div>
@@ -876,7 +879,8 @@ jQuery(document).ready(function() {
     });
 
     $(".btn-open-form").click(function(){
-  		dyFObj.openForm($(this).data("form-type"),"sub");
+    	//alert($(this).data("form-type"))
+  		dyFObj.openForm( $(this).data("form-type"),"sub");
   	});
 
 })
