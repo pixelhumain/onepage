@@ -1,0 +1,12 @@
+{
+    "_id" : ObjectId("5bbf2886bc6370e64e3c1372"),
+    "type" : "tag",
+    "tag" : "numerique",
+    "alias" : [ 
+        "digital", 
+        "technology"
+    ],
+    "logo" : "/images/custom/coeurNum/logo.png",
+    "title" : "filière Numérique Réunionais",
+    "section" : []
+}
