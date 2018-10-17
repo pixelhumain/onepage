@@ -829,11 +829,11 @@ amelioration <br/>
 
 <script type="text/javascript">
 var contextData = {
-  "name": "Coeur Numerique",
-  "type": "organizations",
-  "slug": "coeurnum",
-  "typeSig": "organizations",
-  "id": "5718de0ec95229b3a3a72890"
+  "name": "<?php echo $el['el']['name'] ?>",
+  "type": "<?php echo $el['type'] ?>",
+  "slug": "<?php echo $_GET['slug'] ?>",
+  "typeSig": "<?php echo $el['type'] ?>",
+  "id": "<?php echo $el['id'] ?>"
 };
 var networkJson = {
 	add : {

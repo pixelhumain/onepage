@@ -1,13 +1,14 @@
 <?php
 class TagsAction extends CAction
 {
-    public function run($l) 
+    public function run($l, $slug) 
 	{
 		CO2Stat::incNbLoad("co2-onepage");
     
     	$this->getController()->layout = "//layouts/empty";
     	$params = array(
     		"costum" => PHDB::findOne( "costum",array("tag"=>$l)),
+            "el" => Slug::getElementBySlug( $slug ),
     		"organizations" => Element::getByTagsAndLimit("organizations",null,null,explode(".",$l)) ,
     		"projects" => Element::getByTagsAndLimit("projects",null,null,explode(".",$l)),
     		"events" => Element::getByTagsAndLimit("events",null,null,explode(".",$l)),
