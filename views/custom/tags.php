@@ -260,19 +260,22 @@ $this->renderPartial( $layoutPath.'modals.CO2.mainMenu', array("me"=>$me) );
 	<style type="text/css">
 		#titleCostum{
 			position: absolute;
-			top: 350px;
+			top: 315px;
 			left: 0px;
 			background-color: rgba(0,0,0,0.7);
 			color:white;
-			font-size: 44px;
-			font-weight: bolder;
 			z-index: 10;
 			padding: 10px;
 			text-align: center;
 		}
+		#titleCostum h1{ font-size: 44px; font-weight: bolder; }
+		#titleCostum a{ font-size: 18px; font-weight: bolder; margin-right:30px;}
 	</style>
 
-	<div id="titleCostum"><h1><?php echo (@$costum && @$costum["title"]) ? $costum["title"]  : $_GET["l"] ; ?></h1></div>
+	<div id="titleCostum">
+		<h1><?php echo (@$costum && @$costum["title"]) ? $costum["title"]  : $_GET["l"] ; ?></h1>
+		<a href="javascript:;" class="text-white"><i class="fa fa-rss"></i> Follow</a> <a href="javascript:;" class="text-white"><i class="fa fa-link"></i> Become Mmber</a> <a href="javascript:;" class="text-white"><i class="fa fa-paper-plane-o"></i> Invite Someone</a>
+	</div>
 
 	<div class="row">
 
@@ -325,7 +328,7 @@ $this->renderPartial( $layoutPath.'modals.CO2.mainMenu', array("me"=>$me) );
 	.Ltxt{background-color: white;}
 </style>
 	<div class="container margin-top-20 ">
-
+		
 		<div class="row">
 			<div class="col-xs-12 bgDark">
 			<div class="col-sm-6 col-xs-12 padding-20">
@@ -400,7 +403,7 @@ $this->renderPartial( $layoutPath.'modals.CO2.mainMenu', array("me"=>$me) );
 				proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
 				<div class="text-center margin-top-20">
-					<a href="javascript:;"  data-form-type="organization" class="btn-open-form btn btn-primary">Ajoutez Moi dans l'image</a>
+					<a href="javascript:;"  data-form-type="organization" class="btn-open-form btn btn-primary">Ajoutez Moi dans l'image</a> 
 				</div>
 				</div>
 			</div>
@@ -792,7 +795,7 @@ amelioration <br/>
         <i class="fa fa-plus-circle"></i> Participer : </small>
     </h3>
     <hr class="col-xs-12 margin-bottom-5 margin-top-5">
-    <a href="#element.invite" class="addBtnFoot btn-open-form btn btn-default bg-yellow lbhp margin-bottom-10"> 
+    <a href="#element.invite.type.<?php echo $el['type'] ?>.id.<?php echo $el['id'] ?>" class="addBtnFoot btn-open-form btn btn-default bg-yellow lbhp margin-bottom-10"> 
         <i class="fa fa-user"></i> 
         <span><?php echo Yii::t("common","Invite someone") ?></span>
     </a><br/>
@@ -827,8 +830,10 @@ amelioration <br/>
     
 </div>
 
+
 <script type="text/javascript">
 var contextData = {
+  
   "name": "<?php echo $el['el']['name'] ?>",
   "type": "<?php echo $el['type'] ?>",
   "slug": "<?php echo $_GET['slug'] ?>",
@@ -885,6 +890,55 @@ jQuery(document).ready(function() {
 
 })
 
+
+function loadDataDirectory(dataName, dataIcon, edit){ 
+ 	mylog.log("loadDataDirectory", dataName, dataIcon, edit);
+	showLoader('#central-container');
+	var dataIcon = $(".load-data-directory[data-type-dir="+dataName+"]").data("icon");
+	getAjax('', baseUrl+'/'+moduleId+'/element/getdatadetail/type/'+contextData.type+
+				'/id/'+contextData.id+'/dataName/'+dataName+'?tpl=json',
+				function(data){ 
+					var type = ($.inArray(dataName, ["poi","ressources","vote","actions","discuss"]) >=0) ? dataName : null;
+					if(typeof edit != "undefined" && edit)
+						edit=dataName;
+					mylog.log("loadDataDirectory edit" , edit);
+					displayInTheContainer(data, dataName, dataIcon, type, edit);
+					bindButtonOpenForm();
+				}
+	,"html");
+}
+
+function loadNewsStream(isLiveBool){
+
+	KScrollTo("#profil_imgPreview");
+	//isLiveNews=isLiveBool;
+	isLiveNews = isLiveBool==true ? "/isLive/true" : ""; 
+	dateLimit = 0;
+	scrollEnd = false;
+	loadingData = true;
+	toogleNotif(true);
+
+	var url = "news/index/type/"+typeItem+"/id/"+contextData.id+isLiveNews+"/date/"+dateLimit+
+			  "?isFirst=1&tpl=co2&renderPartial=true";
+	
+	setTimeout(function(){ //attend que le scroll retourn en haut (kscrollto)
+		showLoader('#central-container');
+		ajaxPost('#central-container', baseUrl+'/'+moduleId+'/'+url, 
+			null,
+			function(){ 
+				//if(typeItem=="citoyens") loadLiveNow();
+	            $(window).bind("scroll",function(){ 
+				    if(!loadingData && !scrollEnd && colNotifOpen){
+				          var heightWindow = $("html").height() - $("body").height();
+				          if( $(this).scrollTop() >= heightWindow - 1000){
+				            loadStream(currentIndexMin+indexStep, currentIndexMax+indexStep, isLiveBool);
+				          }
+				    }
+				});
+				loadingData = false;
+		},"html");
+	}, 700);
+}
 
 </script>
 
