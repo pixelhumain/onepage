@@ -890,7 +890,6 @@ jQuery(document).ready(function() {
 
 })
 
-
 function loadDataDirectory(dataName, dataIcon, edit){ 
  	mylog.log("loadDataDirectory", dataName, dataIcon, edit);
 	showLoader('#central-container');

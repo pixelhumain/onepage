@@ -7,7 +7,9 @@ class StumAction extends CAction
     
     	$this->getController()->layout = "//layouts/empty";
     	$el = Slug::getElementBySlug($slug);
-	    $this->getController()->render("custom",array("element"=>$el));
+	    $this->getController()->render("custom",array(
+	    	"element"=>$el,
+	    	"costum" => PHDB::findOne( "costum",array("slug"=>$slug))));
 	    
   	}
 }

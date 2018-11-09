@@ -30,6 +30,7 @@ else if( file_exists(YiiBase::getPathOfAlias('onepage')."/views/custom/".@$_GET[
     if(@$element)
 	   $this->renderPartial( "../custom/".$element["el"]["slug"]."/index", 
     						array("element"=>$element["el"],
+                  "custom"=>@$custom,
     							  "type"=>$element["type"],
     							  "id"=>$element["id"] ) );
     else 
