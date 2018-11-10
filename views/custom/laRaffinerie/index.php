@@ -78,12 +78,12 @@ $this->renderPartial( $layoutPath.'modals.CO2.mainMenu', array("me"=>$me) );
 		#titleCostum h1{ font-size: 44px; font-weight: bolder; }
 		#titleCostum a{ font-size: 18px; font-weight: bolder; margin-right:30px;}
 	</style>
-
+<?php /* ?>
 	<div id="titleCostum">
 		<h1>La Raffinerie : La friche éco-culturelle de Savanna</h1>
 		<a href="javascript:;" class="text-white"><i class="fa fa-rss"></i> Follow</a> <a href="javascript:;" class="text-white"><i class="fa fa-link"></i> Become Mmber</a> <a href="javascript:;" class="text-white"><i class="fa fa-paper-plane-o"></i> Invite Someone</a>
 	</div>
-
+*/ ?>
 	<div class="row">
 
 	<div class="col-xs-12 text-center margin-bottom-50">

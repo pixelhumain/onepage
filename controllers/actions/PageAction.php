@@ -1,5 +1,5 @@
 <?php
-class StumAction extends CAction
+class PageAction extends CAction
 {
     public function run($slug) 
 	{
@@ -9,8 +9,8 @@ class StumAction extends CAction
 
     	$el = Slug::getElementBySlug($slug);
     	
-    	$this->getController()->pageTitle = @$el["el"]["name"]." ".$el["el"]["shortDescription"];
-		$this->getController()->keywords = $slug." ".@$el["name"]." ".@$form["tags"];
+    	$this->getController()->pageTitle = @$el["el"]["name"]." ".@$el["el"]["shortDescription"];
+		$this->getController()->keywords = $slug." ".@$el["el"]["name"]." ".implode(" ", @$el["el"]["tags"]);
 
     	
 	    $this->getController()->render("custom",array(
