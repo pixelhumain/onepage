@@ -63,7 +63,7 @@ class PageAction extends CAction
             if($type == "classifieds") $this->renderPartial('eco.views.co.preview', $params );
            // else if($type == "ressources") $this->renderPartial('ressources.views.co.preview', $params ); 
             else if($type == "poi") $this->renderPartial('../poi/preview', $params ); 
-            else $this->renderPartial("../element/onepage", $params);
+            else $this->renderPartial("co2.views.element.onepage", $params);
         }else
         	$this->getController()->render("co2.views.app.page",$params);
   	}

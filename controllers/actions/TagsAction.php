@@ -1,7 +1,7 @@
 <?php
 class TagsAction extends CAction
 {
-    public function run($l, $slug) 
+    public function run($l, $slug=null) 
 	{
 		CO2Stat::incNbLoad("co2-onepage");
     

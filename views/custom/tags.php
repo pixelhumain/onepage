@@ -832,14 +832,14 @@ amelioration <br/>
 
 
 <script type="text/javascript">
-var contextData = {
-  
+var contextData = {  
   "name": "<?php echo $el['el']['name'] ?>",
   "type": "<?php echo $el['type'] ?>",
   "slug": "<?php echo $_GET['slug'] ?>",
   "typeSig": "<?php echo $el['type'] ?>",
   "id": "<?php echo $el['id'] ?>"
 };
+
 var networkJson = {
 	add : {
 		"organization" : {}, 
@@ -850,16 +850,15 @@ var networkJson = {
 	request : {
 		mainTag : "numerique",
 		parent : {
-			id: "5718de0ec95229b3a3a72890",
-			type : "organizations"
+			id: "<?php echo $el['id'] ?>",
+			type : "<?php echo $el['type'] ?>"
 		},
 		sourceKey : ["coeurnum"],
 		searchTag : ["Numerique", "Hebergeur", "Développeur", "Graphiste", "SysAdmin", "Community Manager" ]
 	}
 };
+
 jQuery(document).ready(function() {
-    
-  	
    
     $(".toolbar-bottom-adds").hide().removeClass("hidden");
     $('#show-bottom-add').off().click(function(){
