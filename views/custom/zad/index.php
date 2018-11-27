@@ -51,7 +51,17 @@ $cssJS = array(
 
 HtmlHelper::registerCssAndScriptsFiles($cssJS, Yii::app()->request->baseUrl);
 
-
+//Module MAP
+$cssAnsScriptFilesModule = array(
+	'/leaflet/leaflet.css',
+	'/leaflet/leaflet.js',
+	'/markercluster/MarkerCluster.css',
+	'/markercluster/MarkerCluster.Default.css',
+	'/markercluster/leaflet.markercluster.js',
+	'/css/map.css',
+	'/js/map.js',
+);
+HtmlHelper::registerCssAndScriptsFiles($cssAnsScriptFilesModule, Yii::app()->getModule( Map::MODULE )->getAssetsUrl() );
  ?>
 <script>
 	var link = document.createElement( 'link' );
@@ -75,7 +85,7 @@ HtmlHelper::registerCssAndScriptsFiles($cssJS, Yii::app()->request->baseUrl);
 
 			<section>
 				<h2>Comment Agir ou Participer</h2>
-				<p>Nested slides are useful for adding additional detail underneath a high level horizontal slide.</p>
+				<div id="mapZad"></div>
 			</section>
 			
 			<section>
@@ -300,7 +310,11 @@ jQuery(document).ready(function() {
 
 	//initOnepageInterface();
 
-
+	var paramsMapZAD = {
+		container : "mapZad"
+	};
+	
+	mapObj.init(paramsMapZAD);
       // More info https://github.com/hakimel/reveal.js#configuration
 	Reveal.initialize({
 		controls: true,
