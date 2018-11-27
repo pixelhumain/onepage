@@ -248,6 +248,60 @@ HtmlHelper::registerCssAndScriptsFiles($cssJS, Yii::app()->request->baseUrl);
 </div>
 
 <script type="text/javascript" >
+var contextData = {  
+  "name": "<?php echo $element['name'] ?>",
+  "type": "<?php echo $type ?>",
+  "slug": "<?php echo $_GET['slug'] ?>",
+  "typeSig": "<?php echo $type ?>",
+  "id": "<?php echo $id ?>"
+};
+
+var networkJson = {
+	add : {
+		"organization" : {}, 
+		"project"  : {}, 
+		"event" : {}
+	},
+	//dynForm : { extra : ["Numerique", "Hebergeur", "Développeur", "Graphiste", "SysAdmin", "Community Manager" ] }, 
+	request : {
+		//mainTag : "numerique",
+		parent : {
+			id: "<?php echo $id ?>",
+			type : "<?php echo $type ?>"
+		},
+		sourceKey : ["<?php echo $element['slug'] ?>"],
+		searchTag : [<?php //echo implode(",", @$element['tags']) ?> ]
+	}
+};
+
+//InitJS
+var modules = {
+        //Configure here eco
+        "classifieds":<?php echo json_encode( Classified::getConfig("classifieds") ) ?>,
+        "jobs":<?php echo json_encode( Classified::getConfig("jobs") ) ?>,
+        "ressources":<?php echo json_encode( Classified::getConfig("ressources") ) ?>,
+        "places": <?php echo json_encode( Place::getConfig() ) ?>,
+        "poi": <?php echo json_encode( Poi::getConfig() ) ?>,
+        "chat": <?php echo json_encode( Chat::getConfig() ) ?>,
+        "interop": <?php echo json_encode( Interop::getConfig() ) ?>,
+        "eco" : <?php echo json_encode( array(
+            "module" => "eco",
+            "url"    => Yii::app()->getModule( "eco" )->assetsUrl
+        )); ?>,
+        "survey" : <?php echo json_encode( array(
+            "url"    => Yii::app()->getModule( "survey" )->assetsUrl
+        )); ?>,
+        "co2" : <?php echo json_encode( array(
+            "url"    => Yii::app()->getModule( "co2" )->assetsUrl
+        )); ?>,
+        "cotools" : <?php echo json_encode( array(
+
+            "module" => "cotools",
+            "init"   => Yii::app()->getModule( "cotools" )->assetsUrl."/js/init.js" ,
+            "form"   => Yii::app()->getModule( "cotools" )->assetsUrl."/js/dynForm.js" ,
+
+        )); ?>
+    };
 
 function loadDataDirectory(dataName, dataIcon, edit){ 
  	mylog.log("loadDataDirectory", dataName, dataIcon, edit);
