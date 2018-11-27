@@ -11,8 +11,7 @@ class SlideAction extends CAction
     	
     	$this->getController()->pageTitle = @$el["el"]["name"]." ".@$el["el"]["shortDescription"];
 		$this->getController()->keywords = $slug." ".@$el["name"]." ".@$form["tags"];
-
-    	
+		
 	    $this->getController()->render("custom",array(
 	    	"element"=>$el,
 	    	"costum" => PHDB::findOne( "costum",array("slug"=>$slug))));
