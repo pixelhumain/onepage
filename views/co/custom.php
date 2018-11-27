@@ -18,15 +18,18 @@
     
 */
 if( @$page ){
+    //echo "page : ".$page;
     $this->renderPartial( $page, $params);
 }
 else if( @Yii::app()->session['custom']["welcomeTpl"] ){
+    //echo "welcomeTpl : ".Yii::app()->session['custom']["welcomeTpl"];
     $this->renderPartial( Yii::app()->session['custom']["welcomeTpl"], 
     						array("params"=>$element["el"],
     							  "type"=>$element["type"],
     							  "id"=>$element["id"] ) );
 } 
 else if( file_exists(YiiBase::getPathOfAlias('onepage')."/views/custom/".@$_GET["slug"]."/index.php") ) { 
+    //echo "Path exist :"."/views/custom/".@$_GET["slug"];
     if(@$element)
 	   $this->renderPartial( "../custom/".$element["el"]["slug"]."/index", 
     						array("element"=>$element["el"],
@@ -37,6 +40,7 @@ else if( file_exists(YiiBase::getPathOfAlias('onepage')."/views/custom/".@$_GET[
         echo "<h1>Cet élément n'existe pas</h1>";
 } 
 else {
+    //echo "final else in custom";
     if(@$element)
 	   $this->renderPartial( "../custom/index", 
     						array("element"=>$element["el"],

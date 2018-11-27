@@ -83,7 +83,6 @@ class OnepageModule extends CWebModule {
 
 		$this->setImport(array(
 			'citizenToolKit.models.*',
-			'ressources.models.*',
 			'places.models.*',
 			'eco.models.*',
 			Yii::app()->params["module"]["parent"].'.models.*',

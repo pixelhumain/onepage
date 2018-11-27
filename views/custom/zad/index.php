@@ -1,180 +1,330 @@
-<style type="text/css">
-	#titleCostum{
-		position: relative;
-		top: 350px;
-		left: 0px;
-		background-color: rgba(0,0,0,0.7);
-		color:white;
-		font-size: 44px;
-		font-weight: bolder;
-		z-index: 10;
-		padding: 10px;
-		text-align: center;
+<?php 
+	$themeParams = CO2::getThemeParams();
+
+	$imgDefault = $this->module->assetsUrl.'/images/news/profile_default_l.png';
+
+	//récupération du type de l'element
+    $typeItem = (@$element["typeSig"] && $element["typeSig"] != "") ? $element["typeSig"] : "";
+    if($typeItem == "") $typeItem = @$element["typeSig"] ? $element["type"] : "item";
+    if($typeItem == "people") $typeItem = "citoyens";
+    
+    $allLinks = array();
+    if(@$element["links"]){
+	    foreach (@$element["links"] as $key => $elementsLink) {
+		    foreach ($elementsLink as $id => $el) {
+		    	$allLinks[$key][] = Element::getByTypeAndId($el["type"], $id);
+		    }
+		}	
 	}
-</style>
-<div id="titleCostum">ZAD : <?php echo $element["name"] ?></div>
-<div class="row margin-top-20  padding-20">
-
-	<div class="col-xs-12 text-center margin-bottom-50">
-	<div id="docCarousel" class="carousel slide" data-ride="carousel">
-  <!-- Round button indicators -->
-  <ol class="carousel-indicators">
-    <li data-target="#docCarousel" data-slide-to="0" class="active"></li>
-    <li data-target="#docCarousel" data-slide-to="1" class=""></li>
-    <li data-target="#docCarousel" data-slide-to="2" class=""></li>
-    <li data-target="#docCarousel" data-slide-to="3" class=""></li>
-    <li data-target="#docCarousel" data-slide-to="4" class=""></li>
-    <li data-target="#docCarousel" data-slide-to="5" class=""></li>
-    <li data-target="#docCarousel" data-slide-to="6" class=""></li>
-    <li data-target="#docCarousel" data-slide-to="7" class=""></li>
-    <li data-target="#docCarousel" data-slide-to="8" class=""></li>
-    <li data-target="#docCarousel" data-slide-to="9" class=""></li>
-    <li data-target="#docCarousel" data-slide-to="10" class=""></li>
-    <li data-target="#docCarousel" data-slide-to="11" class=""></li>
-    <li data-target="#docCarousel" data-slide-to="12" class=""></li>
-    <li data-target="#docCarousel" data-slide-to="13" class=""></li>
-    <li data-target="#docCarousel" data-slide-to="14" class=""></li>
-    <li data-target="#docCarousel" data-slide-to="15" class=""></li>
-  </ol>
-
-  <!-- Wrapper for slides -->
-  <style type="text/css">
-  	div.item img{margin:auto;}
-  </style>
-  <div class="carousel-inner" role="listbox">
-    <div class="item active"><img class="img-responsive" src='<?php echo Yii::app()->getModule("onepage")->assetsUrl; ?>/images/custom/zad/img3.jpg'> </div>
-    <div class="item"><img class="img-responsive" src='<?php echo Yii::app()->getModule("onepage")->assetsUrl; ?>/images/custom/zad/img4.jpg'> </div>
-    <div class="item"><img class="img-responsive" src='<?php echo Yii::app()->getModule("onepage")->assetsUrl; ?>/images/custom/zad/img7.png'> </div>
-    <div class="item"><img class="img-responsive" src='<?php echo Yii::app()->getModule("onepage")->assetsUrl; ?>/images/custom/zad/img8.jpg'> </div>
-    <div class="item"><img class="img-responsive" src='<?php echo Yii::app()->getModule("onepage")->assetsUrl; ?>/images/custom/zad/img9.jpg'> </div>
-    <div class="item"><img class="img-responsive" src='<?php echo Yii::app()->getModule("onepage")->assetsUrl; ?>/images/custom/zad/img11.jpg'> </div>
-    <div class="item"><img class="img-responsive" src='<?php echo Yii::app()->getModule("onepage")->assetsUrl; ?>/images/custom/zad/img12.jpg'> </div>
-    <div class="item"><img class="img-responsive" src='<?php echo Yii::app()->getModule("onepage")->assetsUrl; ?>/images/custom/zad/img14.jpg'> </div>
-    <div class="item"><img class="img-responsive" src='<?php echo Yii::app()->getModule("onepage")->assetsUrl; ?>/images/custom/zad/img16.jpg'> </div>
-    <div class="item"><img class="img-responsive" src='<?php echo Yii::app()->getModule("onepage")->assetsUrl; ?>/images/custom/zad/img17.jpg'> </div>
-    <div class="item"><img class="img-responsive" src='<?php echo Yii::app()->getModule("onepage")->assetsUrl; ?>/images/custom/zad/img18.jpg'> </div>
-    <div class="item"><img class="img-responsive" src='<?php echo Yii::app()->getModule("onepage")->assetsUrl; ?>/images/custom/zad/img19.jpg'> </div>
-    <div class="item"><img class="img-responsive" src='<?php echo Yii::app()->getModule("onepage")->assetsUrl; ?>/images/custom/zad/img20.jpg'> </div>
-    <div class="item"><img class="img-responsive" src='<?php echo Yii::app()->getModule("onepage")->assetsUrl; ?>/images/custom/zad/img24.jpg'> </div>
-    <div class="item"><img class="img-responsive" src='<?php echo Yii::app()->getModule("onepage")->assetsUrl; ?>/images/custom/zad/img25.jpg'> </div>
-    <div class="item"><img class="img-responsive" src='<?php echo Yii::app()->getModule("onepage")->assetsUrl; ?>/images/custom/zad/img29.jpg'> </div>
-  </div>
 	
+	$events = @$allLinks["events"];
+    $members = @$allLinks["members"];
+    $memberOf = @$allLinks["memberOf"];
+    $followers = @$allLinks["followers"];
+
+    $projects = @$allLinks["projects"];
+ 	$tags = @$element["tags"];
+ 	
+ 	$hash = @$element["slug"] ? "#".$element["slug"] :
+								"#page.type.".$type.".id.".$element["_id"];
+   
+	$hashOnepage = "#page.type.".$type.".id.".$element["_id"].".view.".$themeParams["onepageKey"][0];
+
+    $typeItemHead = $typeItem;
+    if($typeItem == "organizations" && @$element["type"]) $typeItemHead = $element["type"];
+
+    //icon et couleur de l'element
+    $icon = Element::getFaIcon($typeItemHead) ? Element::getFaIcon($typeItemHead) : "";
+    $iconColor = Element::getColorIcon($typeItemHead) ? Element::getColorIcon($typeItemHead) : "";
+
+    $useBorderElement = false;
+?>
+
+<?php 
+$cssJS = array(
+	'/plugins/reveal/css/reveal.css',
+	'/plugins/reveal/css/theme/black.css',
+	'/plugins/reveal/lib/css/zenburn.css',
+	'/plugins/reveal/lib/js/head.min.js',
+	'/plugins/reveal/js/reveal.js'
+); 
+
+HtmlHelper::registerCssAndScriptsFiles($cssJS, Yii::app()->request->baseUrl);
+
+
+ ?>
+<script>
+	var link = document.createElement( 'link' );
+	link.rel = 'stylesheet';
+	link.type = 'text/css';
+	link.href = window.location.search.match( /print-pdf/gi ) ? baseUrl+'/plugins/reveal/css/print/pdf.css' : baseUrl+'/plugins/reveal/css/print/paper.css';
+	document.getElementsByTagName( 'head' )[0].appendChild( link );
+</script>
+<div class="reveal">
+
+	<div class="slides">
+		<section data-transition="slide" data-background="#191B16" data-background-transition="zoom">
+			<section>
+				<h1>La Réunion </h1>
+				<h3>Zone à défendre </h3>
+				<p>
+					<small>Le Virtuel pour renforcer le réél</small><br/>
+					<img class="img-responsive" width="400" src='<?php echo Yii::app()->getModule("onepage")->assetsUrl; ?>/images/custom/zad/img3.jpg'>
+				</p>
+			</section>
+
+			<section>
+				<h2>Comment Agir ou Participer</h2>
+				<p>Nested slides are useful for adding additional detail underneath a high level horizontal slide.</p>
+			</section>
+			
+			<section>
+				<h2>Des barrages</h2>
+				<p>
+					<button class="btn btn-primary">Saint Denis</button>
+					<button class="btn btn-primary">Etang Salé</button>
+					<button class="btn btn-primary">Saint Joseph</button>
+					<button class="btn btn-primary">Sainte Marie</button>
+					<button class="btn btn-primary">Trois Bassins</button>
+				</p>
+			</section>
+		</section>
+
+		<section>
+			<h2>Rejoignez le barrage</h2>
+			<h3>Zone À Défendre </h3>
+			<p>
+				Email : <input type="email" name="email">
+				<br/><br/>
+				Où : <select name="where">
+					<option>St Leu</option>
+					<option>Ste Marie</option>
+					<option>Saint Denis</option>
+				</select>
+				<br><small>TODO : connecté à invite, as join + merci de valider votre email 
+				</small>
+			</p>
+		</section>
+
+		<section>
+			<h2>Faite vos propositions</h2>
+			<p>
+				<textarea style="height:400px; width:100%"></textarea>
+				<br>
+				<small>conecté à survey
+				<br>TODO : une fois invité on peut repondre un survey seulement si mail validé
+				<br>TODO : seul les compte avec mdp pourront modifier leur proposition</small>
+
+			</p>
+		</section>
+
+		
+		<section>
+			<?php
+    		$sectionTitle = "COMMUNAUTÉ";
+    	    if(@$typeItem == "organizations") $sectionTitle = "NOS MEMBRES";
+    	    if(@$typeItem == "projects") $sectionTitle = "ILS CONTRIBUENT AU PROJET";
+    	    if(@$typeItem == "events") $sectionTitle = "LES PARTICIPANTS";
+    	    
+    	    if(@$members && sizeOf(@$members)>0)
+    		$this->renderPartial('section', 
+    								array(  "element" => $element,
+    								   		"items" => $members,
+											"sectionKey" => "participant",
+											"sectionTitle" => $sectionTitle,
+											"sectionShadow" => true,
+											"msgNoItem" => "Aucun contact à afficher",
+											"edit" => false,
+											"imgShape" => "square",
+											"useDesc" => false,
+											"useBorderElement"=>$useBorderElement,
+											"countStrongLinks"=>@$countStrongLinks,
+											"styleParams" => array(	"bgColor"=>"#FFF",
+															  		"textBright"=>"dark",
+															  		"fontScale"=>3),
+											));
+    ?>
+			
+		</section>
+
+		
+
+		<section>
+			<h2>Une Carte de la situation</h2>
+			<p>
+				<br><small>TODO : connecté à mapObj
+				</small>
+			</p>
+		</section>
+
+		
+
+		<section id="timeline" class="bg-white row shadow padding-15" data-transition="slide" data-background="#ffffff" data-background-transition="zoom">
+			<?php if(@$edit==true){ ?>
+				<button class="btn btn-default btn-sm pull-right margin-right-15 hidden-xs btn-edit-section" 
+					    data-id="#timeline">
+			        	<i class="fa fa-cog"></i>
+			    </button>
+		        <?php $this->renderPartial('btnShowHide', 
+		                                    array(  "element" => $element,
+		                                            "sectionKey" => "timeline"));
+		        ?>
+		    <?php } ?>
+
+	        <div class="row">
+	            <div class="col-lg-12 text-center">
+	                <h2 class="section-title">
+	                    <span class="sec-title">Actualité récente</span><br>
+	                    <br><small>TODO : connecté à l'actu
+				</small>
+	                    <i class="fa fa-angle-down"></i>
+	                </h2>
+	            </div>
+	        </div>
+
+			<div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1">
+				<ul class="timeline inline-block" id="timeline-page">
+				</ul>
+			</div>
+		</section>
+
+		<section>
+			<h2>Évennements</h2>
+			<p>
+				<?php   if(@$events && sizeOf(@$events)>0){
+    			foreach ($events as $key => $value)
+    				if(Event::isPast($value)) unset($events[$key]);
+    			
+    			if(sizeOf(@$events)>0)
+	    			$this->renderPartial('section', 
+	    								array(  "element" => $element,
+	    								   		"items" => $events,
+												"sectionKey" => "events",
+												"sectionTitle" => "ÉVÉNEMENTS À VENIR",
+												"sectionShadow" => true,
+												"msgNoItem" => "Aucun événement à afficher",
+												"imgShape" => "square",
+												"edit" => $edit,
+												"useDesc" => true,
+												"useBorderElement"=>$useBorderElement,
+												"styleParams" => array(	"bgColor"=>"#f1f2f6",
+																  		"textBright"=>"dark",
+																  		"fontScale"=>3),
+												));
+    		} 
+    ?>
+			</p>
+		</section>
+
+		<section data-background="http://i.giphy.com/90F8aUepslB84.gif">
+			<h2>... Surprise!</h2>
+		</section>
+
+		<section>
+			<section id="fragments" data-transition="slide" data-background="#000000" data-background-transition="zoom">
+				<h2>Nombres de membres </h2>
+				<h2>Nombres de barages </h2>
+			</section>
+			
+		</section>
+
+
+
+		<section data-transition="slide" data-background="#4d7e65" data-background-transition="zoom">
+			<h2>Charte</h2>
+			<ul>
+				<li> Respect </li>
+				<li> Protection </li>
+				<li> Agilité </li>
+				<li> Engagement</li>
+			</ul>
+		</section>
+
+
+
+
+	</div>
+
 </div>
-		
-	</div>
 
-	<div class="col-xs-12 bgDark">
-		<div class="col-xs-6 padding-20">
-		<h1 class="text-center">BUILD YOUR PROCESS</h1>
-		<div class="col-xs-6 col-md-offset-2 padding-20">
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div></div>
-		<div class="col-xs-6"><img class="img-responsive" src='<?php echo Yii::app()->getModule("survey")->assetsUrl; ?>/images/home/sample.png'> </div>
-		</div>
-	</div>
+<script type="text/javascript" >
 
-	<div class="col-xs-12 margin-top-20">
-		<div class="col-xs-6"><img class="img-responsive" src='<?php echo Yii::app()->getModule("survey")->assetsUrl; ?>/images/home/evan-dennis-75563-unsplash.jpg'> </div>
-		<div class="col-xs-6 padding-20">
-		<h1 class="text-center">GET ANSWERS TO YOUR QUESTIONS</h1>
-		<div class="col-xs-6 col-md-offset-2 padding-20">
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div></div>
-	</div>
+function loadDataDirectory(dataName, dataIcon, edit){ 
+ 	mylog.log("loadDataDirectory", dataName, dataIcon, edit);
+	showLoader('#central-container');
+	var dataIcon = $(".load-data-directory[data-type-dir="+dataName+"]").data("icon");
+	getAjax('', baseUrl+'/'+moduleId+'/element/getdatadetail/type/'+contextData.type+
+				'/id/'+contextData.id+'/dataName/'+dataName+'?tpl=json',
+				function(data){ 
+					var type = ($.inArray(dataName, ["poi","ressources","vote","actions","discuss"]) >=0) ? dataName : null;
+					if(typeof edit != "undefined" && edit)
+						edit=dataName;
+					mylog.log("loadDataDirectory edit" , edit);
+					displayInTheContainer(data, dataName, dataIcon, type, edit);
+					bindButtonOpenForm();
+				}
+	,"html");
+}
+
+function loadNewsStream(isLiveBool){
+
+	//KScrollTo("#profil_imgPreview");
+	isLiveNews = isLiveBool==true ? "/isLive/true" : ""; 
+	dateLimit = 0;
+	scrollEnd = false;
+	loadingData = true;
+	//toogleNotif(true);
+
+	var url = "news/index/type/"+typeItem+"/id/"+contextData.id+isLiveNews+"/date/"+dateLimit+"?isFirst=1&tpl=co2&renderPartial=true";
 	
-	<div class="col-xs-12">
-		<div class="col-xs-6 padding-20">
-		<h1 class="text-center">CROWD KNOWLEDGE & COLLECTIVE INTELLIGENCE</h1>
-		<div class="col-xs-6 col-md-offset-2 padding-20">
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div></div>
-		<div class="col-xs-6"><img class="img-responsive" src='<?php echo Yii::app()->getModule("survey")->assetsUrl; ?>/images/home/edwin-andrade-153753-unsplash.jpg'> </div>
-		</div>
-	</div>
-
-	<div class="col-xs-12">
-		<div class="col-xs-6"><img class="img-responsive" src='<?php echo Yii::app()->getModule("survey")->assetsUrl; ?>/images/home/glen-noble-18012-unsplash.jpg'> </div>
-		<div class="col-xs-6 padding-20">
-		<h1 class="text-center">PROJECT MUTUALISATION & EVALUATIONS </h1>
-		<div class="col-xs-6 col-md-offset-2 padding-20">
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div></div>
-	</div>
-
-	<div class="col-xs-12">
+	setTimeout(function(){ //attend que le scroll retourn en haut (kscrollto)
 		
-		<div class="col-xs-6 padding-20">
-		<h1 class="text-center"> TOOLS FOR DEMOCRACY </h1>
-		<div class="col-xs-6 col-md-offset-2 padding-20">
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div></div>
-		<div class="col-xs-6"><img class="img-responsive" src='<?php echo Yii::app()->getModule("survey")->assetsUrl; ?>/images/home/my-life-through-a-lens-110632-unsplash.jpg'> </div>
-	</div>
+		ajaxPost('#timeline-page', baseUrl+'/co2/'+url, 
+			null,
+			function(){ 
+				//if(typeItem=="citoyens") loadLiveNow();
+	            $(window).bind("scroll",function(){ 
+				    if(!loadingData && !scrollEnd && colNotifOpen){
+				          var heightWindow = $("html").height() - $("body").height();
+				          if( $(this).scrollTop() >= heightWindow - 1000){
+				            loadStream(currentIndexMin+indexStep, currentIndexMax+indexStep, isLiveBool);
+				          }
+				    }
+				});
+				loadingData = false;
+		},"html");
+	}, 700);
+}
 
-	<div class="col-xs-12">
-		<div class="col-xs-6"><img class="img-responsive" src='<?php echo Yii::app()->getModule("survey")->assetsUrl; ?>/images/home/cody-davis-253928-unsplash.jpg'> </div>
-		<div class="col-xs-6 padding-20">
-		<h1 class="text-center">OPEN SOURCE & LIBRE SOFTWARE </h1>
-		<div class="col-xs-6 col-md-offset-2 padding-20">
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div></div>
-	</div>
+jQuery(document).ready(function() {
 
-	<div class="col-xs-12">
-		
-		<div class="col-xs-6 padding-20">
-		<h1 class="text-center"> BUILD PARTICIPATIVE COMMUNITIES </h1>
-		<div class="col-xs-6 col-md-offset-2 padding-20">
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div></div>
-		<div class="col-xs-6"><img class="img-responsive" src='<?php echo Yii::app()->getModule("survey")->assetsUrl; ?>/images/home/tim-marshall-114623-unsplash.jpg'> </div>
-	</div>
-
-	<div class="col-xs-12">
-		<div class="col-xs-6"><img class="img-responsive" src='<?php echo Yii::app()->getModule("co2")->assetsUrl; ?>/images/logoBtn.png'> </div>
-		<div class="col-xs-6 padding-20">
-		<h1 class="text-center">LOVE & CO </h1>
-		<div class="col-xs-6 col-md-offset-2 padding-20">
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div></div>
-	</div>
+	//initOnepageInterface();
 
 
+      // More info https://github.com/hakimel/reveal.js#configuration
+	Reveal.initialize({
+		controls: true,
+		progress: true,
+		history: true,
+		center: true,
 
+		transition: 'zoom', // none/fade/slide/convex/concave/zoom
+
+		// More info https://github.com/hakimel/reveal.js#dependencies
+		dependencies: [
+			{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+			{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+			{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+			{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+			{ src: 'plugin/search/search.js', async: true },
+			{ src: 'plugin/zoom-js/zoom.js', async: true },
+			{ src: 'plugin/notes/notes.js', async: true }
+		]
+	});
+
+
+      
+  });
 
 	
-
-</div>
+</script>

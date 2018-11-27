@@ -16,8 +16,6 @@ class TagsAction extends CAction
     		"persons" => Element::getByTagsAndLimit("persons",null,null,explode(".",$l))
     	);
 
-        $this->getController()->pageTitle = @$params["el"]["el"]["name"];
-        $this->getController()->keywords = $l." ".$slug." ".@$el["name"]." ".@$form["tags"];
         
     	$page = (@$tag && @$tag["custom"]["tpl"]) ? $tag["custom"]["tpl"] : "../custom/tags";
     	$this->getController()->render("custom",array(

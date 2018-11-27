@@ -1,5 +1,3 @@
-
-
 <?php 
 
 /* 
@@ -39,10 +37,10 @@ $cssJS = array(
 
 HtmlHelper::registerCssAndScriptsFiles($cssJS, Yii::app()->request->baseUrl);
 $cssJS = array(
-    '/js/dataHelpers.js',
-    '/js/sig/geoloc.js',
-    '/js/sig/findAddressGeoPos.js',
-    '/js/default/loginRegister.js'
+	'/js/dataHelpers.js',
+	'/js/sig/geoloc.js',
+	'/js/sig/findAddressGeoPos.js',
+	'/js/default/loginRegister.js'
 );
 HtmlHelper::registerCssAndScriptsFiles($cssJS, Yii::app()->getModule( Yii::app()->params["module"]["parent"] )->getAssetsUrl() );
 $cssJS = array(
@@ -54,8 +52,50 @@ HtmlHelper::registerCssAndScriptsFiles($cssJS, Yii::app()->theme->baseUrl);
 $layoutPath = 'webroot.themes.'.Yii::app()->theme->name.'.views.layouts.';
 $me = isset(Yii::app()->session['userId']) ? Person::getById(Yii::app()->session['userId']) : null;
 $this->renderPartial( $layoutPath.'modals.CO2.mainMenu', array("me"=>$me) );
-
 ?>
+
+<?php 
+	$themeParams = CO2::getThemeParams();
+
+	$imgDefault = $this->module->assetsUrl.'/images/news/profile_default_l.png';
+
+	//récupération du type de l'element
+    $typeItem = (@$element["typeSig"] && $element["typeSig"] != "") ? $element["typeSig"] : "";
+    if($typeItem == "") $typeItem = @$element["typeSig"] ? $element["type"] : "item";
+    if($typeItem == "people") $typeItem = "citoyens";
+    
+    $allLinks = array();
+    if(@$element["links"]){
+	    foreach (@$element["links"] as $key => $elementsLink) {
+		    foreach ($elementsLink as $id => $el) {
+		    	$allLinks[$key][] = Element::getByTypeAndId($el["type"], $id);
+		    }
+		}	
+	}
+	
+	$events = @$allLinks["events"];
+    $members = @$allLinks["members"];
+    $memberOf = @$allLinks["memberOf"];
+    $followers = @$allLinks["followers"];
+
+    $projects = @$allLinks["projects"];
+ 	$tags = @$element["tags"];
+ 	
+ 	$hash = @$element["slug"] ? "#".$element["slug"] :
+								"#page.type.".$type.".id.".$element["_id"];
+   
+	$hashOnepage = "#page.type.".$type.".id.".$element["_id"].".view.".$themeParams["onepageKey"][0];
+
+    $typeItemHead = $typeItem;
+    if($typeItem == "organizations" && @$element["type"]) $typeItemHead = $element["type"];
+
+    //icon et couleur de l'element
+    $icon = Element::getFaIcon($typeItemHead) ? Element::getFaIcon($typeItemHead) : "";
+    $iconColor = Element::getColorIcon($typeItemHead) ? Element::getColorIcon($typeItemHead) : "";
+
+    $useBorderElement = false;
+?>
+
 
 <style type="text/css">
 	
@@ -138,6 +178,39 @@ $this->renderPartial( $layoutPath.'modals.CO2.mainMenu', array("me"=>$me) );
 		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div></div>
 		<div class="col-xs-6"><img class="img-responsive" src='<?php echo Yii::app()->getModule("onepage")->assetsUrl; ?>/images/custom/<?php echo $_GET["slug"] ?>/img01.jpg'> </div>
 		</div>
+	</div>
+
+	<div class="col-xs-12 no-padding" style="background-color:pink;d max-width:100%; float:left;" id="teamSection">
+	     <center>
+	       <i class="fa fa-caret-down" style="color:#f6f6f6"></i><br>
+	    
+	      
+	      <h1 class="homestead" style="color:#fff">
+	      <i class="fa fa-lightbulb-o text-white"></i> PROJET
+	      </h1>
+
+	<!-- GALLERY Section -->
+	  <?php
+	        
+	          if(@$projects && sizeOf(@$projects)>0)
+	        $this->renderPartial('section', 
+	                    array(  "element" => $element,
+	                          "items" => $projects,
+	                          "sectionKey" => "projects",
+	                          "sectionTitle" => "",
+	                          "sectionShadow" => true,
+	                          "msgNoItem" => "Aucun contact à afficher",
+	                          "edit" => @$edit,
+	                          "imgShape" => "square",
+	                          "useDesc" => false,
+	                          "useBorderElement"=>$useBorderElement,
+	                          "countStrongLinks"=>@$countStrongLinks,
+	                          "styleParams" => array( "bgColor"=>"#FFF",
+	                                    "textBright"=>"dark",
+	                                    "fontScale"=>3),
+	                      ));
+	    ?>
+	  </center>
 	</div>
 
 	<div class="col-xs-12 margin-top-20">

@@ -1,11 +1,11 @@
 <?php
-class StumAction extends CAction
+class SlideAction extends CAction
 {
     public function run($slug) 
 	{
 		CO2Stat::incNbLoad("co2-onepage");
     
-    	$this->getController()->layout = "//layouts/empty";
+    	$this->getController()->layout = "//layouts/reveal";
 
     	$el = Slug::getElementBySlug($slug);
     	

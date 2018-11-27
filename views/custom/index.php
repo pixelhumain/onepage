@@ -328,7 +328,7 @@ $this->renderPartial( "onepage.views.custom.demorun.cards" );
       <i class="fa fa-caret-down" style="color:#f6f6f6"></i><br/>
 
       <h1 class="homestead" style="color:#fff">
-        <i class="fa fa-gavel text-white"></i> DEMORUN
+        <i class="fa fa-gavel text-white"></i> CUSTOM GENERIQUE TODO
       </h1>
       
           
