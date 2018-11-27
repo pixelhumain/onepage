@@ -85,7 +85,7 @@ HtmlHelper::registerCssAndScriptsFiles($cssAnsScriptFilesModule, Yii::app()->get
 
 			<section>
 				<h2>Comment Agir ou Participer</h2>
-				<div id="mapZad"></div>
+				<div id="mapZad" style="height: 300px; width: 100%"></div>
 			</section>
 			
 			<section>
@@ -294,6 +294,7 @@ var modules = {
         "poi": <?php echo json_encode( Poi::getConfig() ) ?>,
         "chat": <?php echo json_encode( Chat::getConfig() ) ?>,
         "interop": <?php echo json_encode( Interop::getConfig() ) ?>,
+        "map": <?php echo json_encode( Map::getConfig() ) ?>,
         "eco" : <?php echo json_encode( array(
             "module" => "eco",
             "url"    => Yii::app()->getModule( "eco" )->assetsUrl
@@ -369,6 +370,8 @@ jQuery(document).ready(function() {
 	};
 	
 	mapObj.init(paramsMapZAD);
+
+	
       // More info https://github.com/hakimel/reveal.js#configuration
 	Reveal.initialize({
 		controls: true,
