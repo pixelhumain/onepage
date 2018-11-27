@@ -45,9 +45,9 @@
     	$mapData = @$events ? array_merge($events, $mapData) : array();
 
 $cssAnsScriptFilesModule = array(
-    '/js/news/index.js'
+    '/js/news/index.js',
   );
-HtmlHelper::registerCssAndScriptsFiles($cssAnsScriptFilesModule, Yii::app()->getModule( "map" )->getAssetsUrl());
+HtmlHelper::registerCssAndScriptsFiles($cssAnsScriptFilesModule, Yii::app()->getModule( "co2" )->getAssetsUrl());
 
 $cssJS = array(
 	'/plugins/reveal/css/reveal.css',
@@ -59,6 +59,13 @@ $cssJS = array(
 ); 
 
 HtmlHelper::registerCssAndScriptsFiles($cssJS, Yii::app()->request->baseUrl);
+
+
+$cssJS = array(
+	'/css/news/index.css',	
+	'/css/timeline2.css',
+); 
+HtmlHelper::registerCssAndScriptsFiles($cssJS, Yii::app()->theme->baseUrl. '/assets');
 
 //Module MAP
 $cssAnsScriptFilesModule = array(
