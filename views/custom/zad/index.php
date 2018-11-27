@@ -38,6 +38,11 @@
     $iconColor = Element::getColorIcon($typeItemHead) ? Element::getColorIcon($typeItemHead) : "";
 
     $useBorderElement = false;
+
+    	$mapData = array();
+    	$mapData = @$members ? array_merge($members, $mapData) : array();
+    	$mapData = @$projects ? array_merge($projects, $mapData) : array();
+    	$mapData = @$events ? array_merge($events, $mapData) : array();
 ?>
 
 <?php 
@@ -248,6 +253,9 @@ HtmlHelper::registerCssAndScriptsFiles($cssJS, Yii::app()->request->baseUrl);
 </div>
 
 <script type="text/javascript" >
+
+var mapData = <?php echo json_encode(@$mapData) ?>;
+
 var contextData = {  
   "name": "<?php echo $element['name'] ?>",
   "type": "<?php echo $type ?>",
@@ -369,10 +377,10 @@ jQuery(document).ready(function() {
 			{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
 			{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
 			{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-			{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+			/*{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
 			{ src: 'plugin/search/search.js', async: true },
 			{ src: 'plugin/zoom-js/zoom.js', async: true },
-			{ src: 'plugin/notes/notes.js', async: true }
+			{ src: 'plugin/notes/notes.js', async: true }*/
 		]
 	});
 
