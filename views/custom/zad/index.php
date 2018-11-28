@@ -8,6 +8,10 @@
     if($typeItem == "") $typeItem = @$element["typeSig"] ? $element["type"] : "item";
     if($typeItem == "people") $typeItem = "citoyens";
     
+
+    //Rest::json($element); exit;
+    $test = Element::getAllLinks($element["links"],$element["typeSig"], (String)$element["_id"]);
+
     $allLinks = array();
     if(@$element["links"]){
 	    foreach (@$element["links"] as $key => $elementsLink) {
@@ -276,6 +280,7 @@ HtmlHelper::registerCssAndScriptsFiles($cssAnsScriptFilesModule, Yii::app()->get
 <script type="text/javascript" >
 
 var mapData = <?php echo json_encode(@$mapData) ?>;
+var mapTest = <?php echo json_encode(@$test) ?>;
 
 var contextData = {  
   name: "<?php echo $element['name'] ?>",
@@ -392,6 +397,7 @@ jQuery(document).ready(function() {
 		container : "mapZad"
 	};
 	mapObj.init(paramsMapZAD);
+	mapObj.addElts(mapTest);
 	
 	//SLIDE INIT
 	//**************************************
