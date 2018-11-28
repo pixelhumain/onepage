@@ -47,18 +47,29 @@
     	$mapData = @$members ? array_merge($members, $mapData) : array();
     	$mapData = @$projects ? array_merge($projects, $mapData) : array();
     	$mapData = @$events ? array_merge($events, $mapData) : array();
-?>
 
-<?php 
+$cssAnsScriptFilesModule = array(
+    '/js/news/index.js',
+  );
+HtmlHelper::registerCssAndScriptsFiles($cssAnsScriptFilesModule, Yii::app()->getModule( "co2" )->getAssetsUrl());
+
 $cssJS = array(
 	'/plugins/reveal/css/reveal.css',
 	'/plugins/reveal/css/theme/black.css',
 	'/plugins/reveal/lib/css/zenburn.css',
 	'/plugins/reveal/lib/js/head.min.js',
-	'/plugins/reveal/js/reveal.js'
+	'/plugins/reveal/js/reveal.js',
+	'/js/api.js'
 ); 
 
 HtmlHelper::registerCssAndScriptsFiles($cssJS, Yii::app()->request->baseUrl);
+
+
+$cssJS = array(
+	'/css/news/index.css',	
+	'/css/timeline2.css',
+); 
+HtmlHelper::registerCssAndScriptsFiles($cssJS, Yii::app()->theme->baseUrl. '/assets');
 
 //Module MAP
 $cssAnsScriptFilesModule = array(
@@ -178,33 +189,14 @@ HtmlHelper::registerCssAndScriptsFiles($cssAnsScriptFilesModule, Yii::app()->get
 
 		
 
-		<section id="timeline" class="bg-white row shadow padding-15" data-transition="slide" data-background="#ffffff" data-background-transition="zoom">
-			<?php if(@$edit==true){ ?>
-				<button class="btn btn-default btn-sm pull-right margin-right-15 hidden-xs btn-edit-section" 
-					    data-id="#timeline">
-			        	<i class="fa fa-cog"></i>
-			    </button>
-		        <?php $this->renderPartial('btnShowHide', 
-		                                    array(  "element" => $element,
-		                                            "sectionKey" => "timeline"));
-		        ?>
-		    <?php } ?>
-
-	        <div class="row">
-	            <div class="col-lg-12 text-center">
-	                <h2 class="section-title">
-	                    <span class="sec-title">Actualité récente</span><br>
-	                    <br><small>TODO : connecté à l'actu
-				</small>
-	                    <i class="fa fa-angle-down"></i>
-	                </h2>
-	            </div>
-	        </div>
-
-			<div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1">
-				<ul class="timeline inline-block" id="timeline-page">
-				</ul>
-			</div>
+		<section class="bg-white row shadow padding-15" data-transition="slide" data-background="#ffffff" data-background-transition="zoom">
+			<section id="timeline-page">
+	        	
+	        </section>
+	                
+	        <section>
+	        	<h1>test sub section</h1>
+	        </section>
 		</section>
 
 		<section>
@@ -272,11 +264,11 @@ var mapData = <?php echo json_encode(@$mapData) ?>;
 var mapTest = <?php echo json_encode(@$test) ?>;
 
 var contextData = {  
-  "name": "<?php echo $element['name'] ?>",
-  "type": "<?php echo $type ?>",
-  "slug": "<?php echo $_GET['slug'] ?>",
-  "typeSig": "<?php echo $type ?>",
-  "id": "<?php echo $id ?>"
+  name: "<?php echo $element['name'] ?>",
+  type: "<?php echo $type ?>",
+  slug: "<?php echo $_GET['slug'] ?>",
+  typeSig: "<?php echo $type ?>",
+  id: "<?php echo (string)$element['_id'] ?>"
 };
 
 var networkJson = {
@@ -343,7 +335,7 @@ function loadDataDirectory(dataName, dataIcon, edit){
 				}
 	,"html");
 }
-
+var debug = true;
 function loadNewsStream(isLiveBool){
 
 	//KScrollTo("#profil_imgPreview");
@@ -353,7 +345,7 @@ function loadNewsStream(isLiveBool){
 	loadingData = true;
 	//toogleNotif(true);
 
-	var url = "news/index/type/"+typeItem+"/id/"+contextData.id+isLiveNews+"/date/"+dateLimit+"?isFirst=1&tpl=co2&renderPartial=true";
+	var url = "news/index/type/"+contextData.type+"/id/"+contextData.id+isLiveNews+"/date/"+dateLimit+"?isFirst=1&tpl=co2&renderPartial=true";
 	
 	setTimeout(function(){ //attend que le scroll retourn en haut (kscrollto)
 		
@@ -376,16 +368,21 @@ function loadNewsStream(isLiveBool){
 
 jQuery(document).ready(function() {
 
-	//initOnepageInterface();
+	// SLIDE NEWS 
+	//**************************************
+	loadNewsStream();
 
+	//SLIDE MAP
+	//**************************************
 	var paramsMapZAD = {
 		container : "mapZad"
 	};
-	
 	mapObj.init(paramsMapZAD);
 	mapObj.addElts(mapTest);
-
 	
+	//SLIDE INIT
+	//**************************************
+
       // More info https://github.com/hakimel/reveal.js#configuration
 	Reveal.initialize({
 		controls: true,
