@@ -86,26 +86,29 @@ HtmlHelper::registerCssAndScriptsFiles($cssAnsScriptFilesModule, Yii::app()->get
 	link.href = window.location.search.match( /print-pdf/gi ) ? baseUrl+'/plugins/reveal/css/print/pdf.css' : baseUrl+'/plugins/reveal/css/print/paper.css';
 	document.getElementsByTagName( 'head' )[0].appendChild( link );
 </script>
+<style type="text/css">
+	.cocolor{color:yellow;}
+</style>
 <div class="reveal">
 
 	<div class="slides">
 		<section data-transition="slide" data-background="#191B16" data-background-transition="zoom">
 			<section>
-				<h1>La Réunion </h1>
-				<h3>Zone à défendre </h3>
+				<h1 style="color:yellow;border:1px solid yellow;" >Zone à défendre </h1>
+				<h3 style="color:yellow"> <?php echo $element["name"]; ?> </h3>
 				<p>
-					<small>Le Virtuel pour renforcer le réél</small><br/>
-					<img class="img-responsive" width="400" src='<?php echo Yii::app()->getModule("onepage")->assetsUrl; ?>/images/custom/zad/img3.jpg'>
+					<small><?php echo $element["shortDescription"]; ?></small><br/>
+					<img class="img-responsive" width="400" src='<?php echo $element["profilImageUrl"]; ?>'>
 				</p>
 			</section>
 
 			<section>
-				<h2>Comment Agir ou Participer</h2>
+				<h2 style="color:yellow;border:1px solid yellow;">Comment Agir ou Participer</h2>
 				<div id="mapZad" style="height: 300px; width: 100%"></div>
 			</section>
 			
 			<section>
-				<h2>Des barrages</h2>
+				<h2 style="color:yellow;border:1px solid yellow;">Des barrages</h2>
 				<p>
 					<button class="btn btn-primary">Saint Denis</button>
 					<button class="btn btn-primary">Etang Salé</button>
@@ -117,8 +120,11 @@ HtmlHelper::registerCssAndScriptsFiles($cssAnsScriptFilesModule, Yii::app()->get
 		</section>
 
 		<section>
-			<h2>Rejoignez le barrage</h2>
-			<h3>Zone À Défendre </h3>
+			<h2 style="color:yellow">Intégrer un dynForm directement dans le slide</h2>
+		</section>
+
+		<section>
+			<h2 style="color:yellow;border:1px solid yellow;">Rejoignez le barrage</h2>
 			<p>
 				Email : <input type="email" name="email">
 				<br/><br/>
@@ -127,15 +133,28 @@ HtmlHelper::registerCssAndScriptsFiles($cssAnsScriptFilesModule, Yii::app()->get
 					<option>Ste Marie</option>
 					<option>Saint Denis</option>
 				</select>
+				<br>
+				Role : <select name="where">
+					<option>Communiquant</option>
+					<option>Informatique</option>
+					<option>Organisateur</option>
+					<option>Gestion</option>
+					<option>Conseiller</option>
+					<option>Financeur</option>
+				</select>
+				
 				<br><small>TODO : connecté à invite, as join + merci de valider votre email 
+				<br>je trouve l'option du panneau invite trop compliqué
 				</small>
 			</p>
 		</section>
 
 		<section>
-			<h2>Faite vos propositions</h2>
+			<a href="/survey/co/index/id/<?php echo $_GET['slug'] ?>/session/1" target="_blank" ><h2 style="border:1px solid yellow;color:yellow">Faites vos propositions</h2></a>
+
+			<a href="/survey/co/answers/id/<?php echo $_GET['slug'] ?>/session/1" target="_blank" ><h2 style="border:1px solid yellow;color:yellow">les propositions</h2></a>
 			<p>
-				<textarea style="height:400px; width:100%"></textarea>
+				
 				<br>
 				<small>conecté à survey
 				<br>TODO : une fois invité on peut repondre un survey seulement si mail validé
@@ -176,7 +195,7 @@ HtmlHelper::registerCssAndScriptsFiles($cssAnsScriptFilesModule, Yii::app()->get
 		
 
 		<section>
-			<h2>Une Carte de la situation</h2>
+			<h2 style="color:yellow;border:1px solid yellow;">Une Carte de la situation</h2>
 			<p>
 				<br><small>TODO : connecté à mapObj
 				</small>
