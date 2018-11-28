@@ -101,14 +101,14 @@ HtmlHelper::registerCssAndScriptsFiles($cssAnsScriptFilesModule, Yii::app()->get
 				<h1 style="color:yellow;border:1px solid yellow;" >Zone à défendre </h1>
 				<h3 style="color:yellow"> <?php echo $element["name"]; ?> </h3>
 				<p>
-					<small><?php echo $element["shortDescription"]; ?></small><br/>
+					<small><?php echo @$element["shortDescription"]; ?></small><br/>
 					<img class="img-responsive" width="400" src='<?php echo $element["profilImageUrl"]; ?>'>
 				</p>
 			</section>
 
 			<section>
 				<h2 style="color:yellow;border:1px solid yellow;">Comment Agir ou Participer</h2>
-				<div id="mapZad" style="height: 300px; width: 100%"></div>
+				<div id="mapZad" style="width: 100%; height: 500px;"></div>
 			</section>
 			
 			<section>
@@ -394,7 +394,8 @@ jQuery(document).ready(function() {
 	//SLIDE MAP
 	//**************************************
 	var paramsMapZAD = {
-		container : "mapZad"
+		container : "mapZad",
+		activeCluster : false
 	};
 	mapObj.init(paramsMapZAD);
 	mapObj.addElts(mapTest);
