@@ -53,9 +53,18 @@ HtmlHelper::registerCssAndScriptsFiles($cssJS, Yii::app()->request->baseUrl);
 		</section>
 		
 		<section>
-			<h2>Hello There</h2>
+			<h2>Filiere</h2>
 			<p>
-				reveal.js enables you to create beautiful interactive slide decks using HTML. This presentation will show you examples of what it can do.
+			<h2>Agricil</h2>
+			    ou sont les producteurs locaux 
+			    </br>valoriser les cagettes
+			    </br>fiche blanche : potager partagé
+			  <h2>Transport </h2>
+			    </br>covoiturage 
+			  <h2>Education </h2>
+			    </br>groupement de parent 
+			  <h2>Energy</h2>
+			  </br>...
 			</p>
 		</section>
 

@@ -90,9 +90,11 @@ HtmlHelper::registerCssAndScriptsFiles($cssAnsScriptFilesModule, Yii::app()->get
 	link.href = window.location.search.match( /print-pdf/gi ) ? baseUrl+'/plugins/reveal/css/print/pdf.css' : baseUrl+'/plugins/reveal/css/print/paper.css';
 	document.getElementsByTagName( 'head' )[0].appendChild( link );
 </script>
+
 <style type="text/css">
-	.cocolor{color:yellow;}
+.yelbord{color:yellow;border:1px solid yellow;}
 </style>
+
 <div class="reveal">
 
 	<div class="slides">
@@ -122,13 +124,102 @@ HtmlHelper::registerCssAndScriptsFiles($cssAnsScriptFilesModule, Yii::app()->get
 				</p>
 			</section>
 		</section>
-
+		
+		
 		<section>
-			<h2 style="color:yellow">Intégrer un dynForm directement dans le slide</h2>
+			<section>
+				<h2 style="color:yellow;border:1px solid yellow;">Un programme de société utopique</h2>
+				<a href="" target="_blank" >Découvrir Smarterre</a>
+			</section>
+			<section>
+				<h2 style="color:yellow;border:1px solid yellow;">EDUCATION</h2>
+					<ul>				
+				    <li>Formation sur les pratiques de l'économie circulaire</li>
+				    <li>Apprentissage des outils numeriques et citoyens</li>
+				    <li>Utlisation et philosophie du Libre et Partage (Logiciel Libre, Wikipedia..)</li>
+					</ul>
+					<a href="https://www.communecter.org/#@educationGj974" target="_blank" >Rejoindre le groupe</a>
+			</section>
+			<section>
+				<h2 style="color:yellow;border:1px solid yellow;">AGRICULTURE</h2>
+				<ul>
+					<li>Plus de maraichage respectant les sols</li>
+					<li>Introduire plus d'arbres producteurs</li>
+					<li>Circuit court et glanage</li>
+					<li>Transformation et distribution locale</li>
+				</ul>
+				<br><a href="https://www.communecter.org/#@agricultureGj974" target="_blank" >Rejoindre le groupe</a>
+			</section>
+			<section>
+				<h2 style="color:yellow;border:1px solid yellow;">ECONOMIE</h2>
+				<ul>
+					<li>Financement Participatif peut être une solution au manque de budget</li>
+					<li>Monnaie Locale Réunionnaise, permet de créer une vraie économie locale</li>
+				</ul>
+				<a href="https://www.communecter.org/#@economieGj974" target="_blank" >Rejoindre le groupe</a>
+			</section>
+			<section>
+				<h2 style="color:yellow;border:1px solid yellow;">ENERGIE</h2>
+				<ul>
+					<li>Smart Grid : Production D'énergie Décentralisée</li>
+				</ul>
+				<a href="https://www.communecter.org/#@energieGj974" target="_blank" >Rejoindre le groupe</a>
+			</section>
+			<section>
+				<h2 style="color:yellow;border:1px solid yellow;">CITOYENNETÉ</h2>
+				<ul>
+					<li>Open Data, Transparence et accès a l'information</li>
+					<li>Participation Citoyenne</li>
+					<li>Citoyen Capteur (Mobile et Hardware)</li>
+					<li>smart collector : citoyen contributeur au flux et revalorisation locale</li>
+					<li>city indicateur (déchets,transport,capacité à créer du lien…)</li>
+				</ul>
+				<a href="https://www.communecter.org/#@citoyenneteGj974" target="_blank" >Rejoindre le groupe</a>
+			</section>
+			<section>
+				<h2 style="color:yellow;border:1px solid yellow;">DECHETS</h2>
+				<a href="" target="_blank" >Rejoindre le groupe</a>
+			</section>
+			<section>
+				<h2 style="color:yellow;border:1px solid yellow;">ALIMENTATION</h2>
+
+				<ul>
+					<li>Jardin Maison </li>
+					<li>Amap locale</li>
+					<li>Permaculture appliquée</li>
+					<li>Transport</li>
+					<li>Covoiturage</li>
+					<li>Nouvelle technologie</li>
+					<li>Télé Travail</li>
+				</ul>
+				<a href="https://www.communecter.org/#@alimentationGj974" target="_blank" >Rejoindre le groupe</a>
+			</section>
+			<section>
+				<h2 style="color:yellow;border:1px solid yellow;">SANTÉ</h2>
+				<a href="https://www.communecter.org/#@santeGj974" target="_blank" >Rejoindre le groupe</a>
+			</section>
+			<section>
+				<h2 style="color:yellow;border:1px solid yellow;">AMÉNAGEMENT</h2>
+				
+			    <li>Tourisme 2.0 : Guide Ultra Locaux</li>
+    			<li>Meilleure connaissance et découverte locale</li>
+				</ul>
+				<a href="https://www.communecter.org/#@amenagementGj974" target="_blank" >Rejoindre le groupe</a>
+			</section>
+			<section>
+				<h2 style="color:yellow;border:1px solid yellow;">TRAVAIL</h2>
+			    <ul>
+			<li>Espace de Coworking </li>
+			<li>Actions et participations Citoyennes </li>
+			<li>Garage, Crèche, garderie participative </li>
+			<li>Emploi : la collaboration une clef de la réussite	</li>
+			</ul>
+			<a href="https://www.communecter.org/#@travailGj974" target="_blank" >Rejoindre le groupe</a>
+			</section>
 		</section>
 
 		<section>
-			<h2 style="color:yellow;border:1px solid yellow;">Rejoignez le barrage</h2>
+			<h2 style="color:yellow;border:1px solid yellow;">Rejoignez Nous</h2>
 			<p>
 				Email : <input type="email" name="email">
 				<br/><br/>
