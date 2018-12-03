@@ -480,7 +480,7 @@ jQuery(document).ready(function() {
 
 	// SLIDE NEWS 
 	//**************************************
-	loadNewsStream();
+	//loadNewsStream();
 
 	//SLIDE MAP
 	//**************************************
@@ -489,7 +489,7 @@ jQuery(document).ready(function() {
 		activeCluster : false
 	};
 	mapObj.init(paramsMapZAD);
-	mapObj.addElts(mapTest);
+	mapObj.addElts(mapTest, true);
 	
 	//SLIDE INIT
 	//**************************************
