@@ -61,18 +61,18 @@
 
 
         <?php if(@$freeSec=="free-section"){ ?>
-            <button class="btn btn-default btn-sm pull-right margin-right-15 hidden-xs btn-delete-free-section" 
-                    data-section-key="<?php echo @$sectionKey; ?>">
-                    <i class="fa fa-trash"></i>
-            </button><br>
-            <div class="pull-right popup-conf-delete-section text-right bg-white letter-orange padding-15 shadow2 bold radius-15 margin-right-15" id="popup-conf-delete-section-<?php echo @$sectionKey; ?>">
-                <span class=" pull-right">Voulez-vous vraiment supprimer cette section ?</span>
-                <br><hr class="margin-5">
-                <button class="btn btn-link margin-top-5 bg-red btn-cancel-delete-free-section"                     
-                        data-section-key="<?php echo @$sectionKey; ?>">Non</button>
-                <button class="btn btn-link margin-top-5 bg-green-k btn-conf-delete-free-section"                      
-                        data-section-key="#<?php echo @$sectionKey; ?>">Oui</button>
-            </div>
+        <button class="btn btn-default btn-sm pull-right margin-right-15 hidden-xs btn-delete-free-section" 
+                data-section-key="<?php echo @$sectionKey; ?>">
+                <i class="fa fa-trash"></i>
+        </button><br>
+        <div class="pull-right popup-conf-delete-section text-right bg-white letter-orange padding-15 shadow2 bold radius-15 margin-right-15" id="popup-conf-delete-section-<?php echo @$sectionKey; ?>">
+            <span class=" pull-right">Voulez-vous vraiment supprimer cette section ?</span>
+            <br><hr class="margin-5">
+            <button class="btn btn-link margin-top-5 bg-red btn-cancel-delete-free-section"                     
+                    data-section-key="<?php echo @$sectionKey; ?>">Non</button>
+            <button class="btn btn-link margin-top-5 bg-green-k btn-conf-delete-free-section"                      
+                    data-section-key="#<?php echo @$sectionKey; ?>">Oui</button>
+        </div>
         <?php } ?>
 
         <?php $this->renderPartial('btnShowHide', 

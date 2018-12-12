@@ -109,7 +109,6 @@ HtmlHelper::registerCssAndScriptsFiles($cssAnsScriptFilesModule, Yii::app()->get
 			</section>
 
 			<section>
-				<h2 style="color:yellow;border:1px solid yellow;">Comment Agir ou Participer</h2>
 				<div id="mapZad" style="width: 100%; height: 500px;"></div>
 			</section>
 			
@@ -286,8 +285,33 @@ HtmlHelper::registerCssAndScriptsFiles($cssAnsScriptFilesModule, Yii::app()->get
     ?>
 			
 		</section>
+<?php
+    		
+    	    
+    	    if(@$projects && sizeOf(@$projects)>0)
+    	    {?>
+		<section>
+			<?php 
+    		$this->renderPartial('section', 
+    								array(  "element" => $element,
+    								   		"items" => $projects,
+											"sectionKey" => "Projets",
+											"sectionTitle" => "PROJETS",
+											"sectionShadow" => true,
+											"msgNoItem" => "Aucun contact à afficher",
+											"edit" => false,
+											"imgShape" => "square",
+											"useDesc" => false,
+											"useBorderElement"=>$useBorderElement,
+											"countStrongLinks"=>@$countStrongLinks,
+											"styleParams" => array(	"bgColor"=>"#FFF",
+															  		"textBright"=>"dark",
+															  		"fontScale"=>3),
+											)); ?>
+			
+		</section>
 
-		
+		<?php } ?>
 
 		<section>
 			<h2 style="color:yellow;border:1px solid yellow;">Une Carte de la situation</h2>
@@ -312,28 +336,7 @@ HtmlHelper::registerCssAndScriptsFiles($cssAnsScriptFilesModule, Yii::app()->get
 		<section>
 			<h2>Évennements</h2>
 			<p>
-				<?php   if(@$events && sizeOf(@$events)>0){
-    			foreach ($events as $key => $value)
-    				if(Event::isPast($value)) unset($events[$key]);
-    			
-    			if(sizeOf(@$events)>0)
-	    			$this->renderPartial('section', 
-	    								array(  "element" => $element,
-	    								   		"items" => $events,
-												"sectionKey" => "events",
-												"sectionTitle" => "ÉVÉNEMENTS À VENIR",
-												"sectionShadow" => true,
-												"msgNoItem" => "Aucun événement à afficher",
-												"imgShape" => "square",
-												"edit" => $edit,
-												"useDesc" => true,
-												"useBorderElement"=>$useBorderElement,
-												"styleParams" => array(	"bgColor"=>"#f1f2f6",
-																  		"textBright"=>"dark",
-																  		"fontScale"=>3),
-												));
-    		} 
-    ?>
+				
 			</p>
 		</section>
 

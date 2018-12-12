@@ -10,3 +10,13 @@
     "title" : "filière Numérique Réunionais",
     "section" : []
 }
+
+{
+    "_id" : ObjectId("5be56357b3c55d2c34a3cc41"),
+    "type" : "stum",
+    "slug" : "laRaffinerie",
+    "logo" : "/images/custom/laraffinerie/logo.png",
+    "title" : "La Raffinerie : Tiers Liers connecté",
+    "color" : "red",
+    "section" : []
+}
