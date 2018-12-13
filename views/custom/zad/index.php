@@ -48,10 +48,6 @@
     	$mapData = @$projects ? array_merge($projects, $mapData) : array();
     	$mapData = @$events ? array_merge($events, $mapData) : array();
 
-$cssAnsScriptFilesModule = array(
-    '/js/news/index.js',
-  );
-HtmlHelper::registerCssAndScriptsFiles($cssAnsScriptFilesModule, Yii::app()->getModule( "co2" )->getAssetsUrl());
 
 $cssJS = array(
 	'/plugins/reveal/css/reveal.css',
@@ -66,11 +62,6 @@ $cssJS = array(
 HtmlHelper::registerCssAndScriptsFiles($cssJS, Yii::app()->request->baseUrl);
 
 
-$cssJS = array(
-	'/css/news/index.css',	
-	'/css/timeline2.css',
-); 
-HtmlHelper::registerCssAndScriptsFiles($cssJS, Yii::app()->theme->baseUrl. '/assets');
 
 //Module MAP
 $cssAnsScriptFilesModule = array(
@@ -113,7 +104,6 @@ HtmlHelper::registerCssAndScriptsFiles($cssAnsScriptFilesModule, Yii::app()->get
 				<h2 style="color:yellow;border:1px solid yellow;">Comment Agir ou Participer</h2>
 				<div id="mapZad" style="width: 100%; height: 500px;"></div>
 			</section>
-			
 			<section>
 				<h2 style="color:yellow;border:1px solid yellow;">Des barrages</h2>
 				<p>
@@ -124,6 +114,11 @@ HtmlHelper::registerCssAndScriptsFiles($cssAnsScriptFilesModule, Yii::app()->get
 					<button class="btn btn-primary">Trois Bassins</button>
 				</p>
 			</section>
+
+			<section>
+	        	<h2 style="color:yellow;border:1px solid yellow;">S'informer</h2>
+				<div id="timeline-page" style="width: 100%; height: 600px;"></div>
+	        </section>
 		</section>
 		
 		
@@ -466,24 +461,22 @@ function loadDataDirectory(dataName, dataIcon, edit){
 	,"html");
 }
 var debug = true;
-function loadNewsStream(isLiveBool){
-
+function loadNewsStream(){
 	//KScrollTo("#profil_imgPreview");
-	isLiveNews = isLiveBool==true ? "/isLive/true" : ""; 
-	dateLimit = 0;
-	scrollEnd = false;
-	loadingData = true;
-	//toogleNotif(true);
-
-	var url = "news/index/type/"+contextData.type+"/id/"+contextData.id+isLiveNews+"/date/"+dateLimit+"?isFirst=1&tpl=co2&renderPartial=true";
-	
+	var url = "news/co/index/type/"+contextData.type+"/id/"+contextData.id;
 	setTimeout(function(){ //attend que le scroll retourn en haut (kscrollto)
 		
-		ajaxPost('#timeline-page', baseUrl+'/co2/'+url, 
-			null,
+		ajaxPost('#timeline-page', baseUrl+'/'+url, 
+			{
+				formCreate:false,
+				inline:true,
+				nbCol:3,
+				scroll:false,
+				indexStep:3
+			},
 			function(){ 
 				//if(typeItem=="citoyens") loadLiveNow();
-	            $(window).bind("scroll",function(){ 
+	            /*$(window).bind("scroll",function(){ 
 				    if(!loadingData && !scrollEnd && colNotifOpen){
 				          var heightWindow = $("html").height() - $("body").height();
 				          if( $(this).scrollTop() >= heightWindow - 1000){
@@ -491,7 +484,7 @@ function loadNewsStream(isLiveBool){
 				          }
 				    }
 				});
-				loadingData = false;
+				loadingData = false;*/
 		},"html");
 	}, 700);
 }
@@ -500,7 +493,7 @@ jQuery(document).ready(function() {
 
 	// SLIDE NEWS 
 	//**************************************
-	//loadNewsStream();
+	loadNewsStream();
 
 	//SLIDE MAP
 	//**************************************
