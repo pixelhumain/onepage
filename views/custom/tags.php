@@ -49,10 +49,25 @@ $cssJS = array(
 );
 HtmlHelper::registerCssAndScriptsFiles($cssJS, Yii::app()->theme->baseUrl);
 
+//Module MAP
+$cssAnsScriptFilesModule = array(
+	'/leaflet/leaflet.css',
+	'/leaflet/leaflet.js',
+	'/markercluster/MarkerCluster.css',
+	'/markercluster/MarkerCluster.Default.css',
+	'/markercluster/leaflet.markercluster.js',
+	'/css/map.css',
+	'/js/map.js',
+);
+HtmlHelper::registerCssAndScriptsFiles($cssAnsScriptFilesModule, Yii::app()->getModule( Map::MODULE )->getAssetsUrl() );
+
 $layoutPath = 'webroot.themes.'.Yii::app()->theme->name.'.views.layouts.';
 $me = isset(Yii::app()->session['userId']) ? Person::getById(Yii::app()->session['userId']) : null;
 $this->renderPartial( $layoutPath.'modals.CO2.mainMenu', array("me"=>$me) );
 
+
+
+//$test = Element::getAllLinks($el["links"],$el["typeSig"], (String)$el["_id"]);
 ?>
 
 
@@ -328,7 +343,6 @@ $this->renderPartial( $layoutPath.'modals.CO2.mainMenu', array("me"=>$me) );
 	.Ltxt{background-color: white;}
 </style>
 	<div class="container margin-top-20 ">
-		
 		<div class="row">
 			<div class="col-xs-12 bgDark">
 			<div class="col-sm-6 col-xs-12 padding-20">
@@ -716,7 +730,6 @@ $this->renderPartial( $layoutPath.'modals.CO2.mainMenu', array("me"=>$me) );
     </div>
   </div>
 
-    
   </div>
 
   <div class="space50"></div>
@@ -735,6 +748,15 @@ $this->renderPartial( $layoutPath.'modals.CO2.mainMenu', array("me"=>$me) );
 
     
   </div>
+
+	<div class="space50"></div>
+
+		<div class="col-xs-offset-1 col-xs-10 shadow2 padding-20 margin-top-20 margin-bottom-20">
+			<div id="mapCoeur" style="width: 100%; height: 500px;"></div>
+		</div>
+
+
+	</div>
 
 
   <div class="space50"></div>
@@ -858,8 +880,17 @@ var networkJson = {
 	}
 };
 
+var mapTest = <?php echo json_encode(@$organizations) ?>;
+
 jQuery(document).ready(function() {
    
+   	var paramsMapCoeur = {
+		container : "mapCoeur",
+		activeCluster : true
+	};
+	mapObj.init(paramsMapCoeur);
+	mapObj.addElts(mapTest, true);
+
     $(".toolbar-bottom-adds").hide().removeClass("hidden");
     $('#show-bottom-add').off().click(function(){
         if(!$(this).hasClass("opened")){
