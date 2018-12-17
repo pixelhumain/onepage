@@ -86,6 +86,7 @@ class OnepageModule extends CWebModule {
 			'places.models.*',
 			'eco.models.*',
 			'map.models.*',
+			'news.models.*',
 			Yii::app()->params["module"]["parent"].'.models.*',
 			Yii::app()->params["module"]["parent"].'.components.*',
 			$this->id.'.models.*',

@@ -61,9 +61,7 @@ $cssJS = array(
 	'/plugins/reveal/js/reveal.js',
 	'/js/api.js'
 ); 
-
 HtmlHelper::registerCssAndScriptsFiles($cssJS, Yii::app()->request->baseUrl);
-
 
 $cssJS = array(
 	'/css/news/index.css',	
