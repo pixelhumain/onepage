@@ -48,10 +48,6 @@
     	$mapData = @$projects ? array_merge($projects, $mapData) : array();
     	$mapData = @$events ? array_merge($events, $mapData) : array();
 
-$cssAnsScriptFilesModule = array(
-    '/js/news/index.js',
-  );
-HtmlHelper::registerCssAndScriptsFiles($cssAnsScriptFilesModule, Yii::app()->getModule( "co2" )->getAssetsUrl());
 
 $cssJS = array(
 	'/plugins/reveal/css/reveal.css',
@@ -59,7 +55,8 @@ $cssJS = array(
 	'/plugins/reveal/lib/css/zenburn.css',
 	'/plugins/reveal/lib/js/head.min.js',
 	'/plugins/reveal/js/reveal.js',
-	'/js/api.js'
+	'/js/api.js',
+	'/plugins/jquery-validation/dist/jquery.validate.min.js',
 ); 
 HtmlHelper::registerCssAndScriptsFiles($cssJS, Yii::app()->request->baseUrl);
 
@@ -109,7 +106,6 @@ HtmlHelper::registerCssAndScriptsFiles($cssAnsScriptFilesModule, Yii::app()->get
 			<section>
 				<div id="mapZad" style="width: 100%; height: 500px;"></div>
 			</section>
-			
 			<section>
 				<h2 style="color:yellow;border:1px solid yellow;">Des barrages</h2>
 				<p>
@@ -120,6 +116,11 @@ HtmlHelper::registerCssAndScriptsFiles($cssAnsScriptFilesModule, Yii::app()->get
 					<button class="btn btn-primary">Trois Bassins</button>
 				</p>
 			</section>
+
+			<section>
+	        	<h2 style="color:yellow;border:1px solid yellow;">S'informer</h2>
+				<div id="timeline-page" style="width: 100%; height: 600px;"></div>
+	        </section>
 		</section>
 		
 		
@@ -216,29 +217,48 @@ HtmlHelper::registerCssAndScriptsFiles($cssAnsScriptFilesModule, Yii::app()->get
 		</section>
 
 		<section>
-			<h2 style="color:yellow;border:1px solid yellow;">Rejoignez Nous</h2>
-			<p>
-				Email : <input type="email" name="email">
-				<br/><br/>
-				Où : <select name="where">
-					<option>St Leu</option>
-					<option>Ste Marie</option>
-					<option>Saint Denis</option>
-				</select>
-				<br>
-				Role : <select name="where">
-					<option>Communiquant</option>
-					<option>Informatique</option>
-					<option>Organisateur</option>
-					<option>Gestion</option>
-					<option>Conseiller</option>
-					<option>Financeur</option>
-				</select>
-				
-				<br><small>TODO : connecté à invite, as join + merci de valider votre email 
-				<br>je trouve l'option du panneau invite trop compliqué
-				</small>
-			</p>
+			<!-- <form id="form-invite" class="">
+				<h2 style="color:yellow;border:1px solid yellow;">Rejoignez Nous</h2>
+				<p>
+					Email : <input type="email" name="email" id="email">
+					<br/>
+					Où : <select name="where">
+						<option>St Leu</option>
+						<option>Ste Marie</option>
+						<option>Saint Denis</option>
+					</select>
+					<br/>
+					Role : <select name="where">
+						<option>Communiquant</option>
+						<option>Informatique</option>
+						<option>Organisateur</option>
+						<option>Gestion</option>
+						<option>Conseiller</option>
+						<option>Financeur</option>
+					</select>
+					<br/>
+					<button class="btn btn-success" id="btnInviteNew" ><i class="fa fa-add"></i> <?php //echo Yii::t("invite","Rejoindre"); ?> </button>
+					
+					<br><small>TODO : connecté à invite, as join + merci de valider votre email 
+					<br>je trouve l'option du panneau invite trop compliqué
+					</small>
+				</p>
+			</form> -->
+			<?php
+			if(!isset(Yii::app()->session['userId'])) { ?>
+				<h2 style="color:yellow;border:1px solid yellow;">Rejoignez Nous</h2>
+				<br/>
+				<button class="btn btn-default bg-green margin-top-15 btn-lg btn-menu-connect" data-toggle="modal" data-target="#modalLogin">
+					<i class="fa fa-sign-in"></i> <?php echo Yii::t("login","Log in") ?>
+				</button>
+				<button class="btn btn-link margin-top-15 btn-lg" data-toggle="modal" data-target="#modalRegister">
+					<i class="fa fa-plus-circle"></i> <?php echo Yii::t("login","Create an account") ?>
+				</button>
+
+			<?php 
+			}else{
+
+			} ?>
 		</section>
 
 		<section>
@@ -447,24 +467,22 @@ function loadDataDirectory(dataName, dataIcon, edit){
 	,"html");
 }
 var debug = true;
-function loadNewsStream(isLiveBool){
-
+function loadNewsStream(){
 	//KScrollTo("#profil_imgPreview");
-	isLiveNews = isLiveBool==true ? "/isLive/true" : ""; 
-	dateLimit = 0;
-	scrollEnd = false;
-	loadingData = true;
-	//toogleNotif(true);
-
-	var url = "news/index/type/"+contextData.type+"/id/"+contextData.id+isLiveNews+"/date/"+dateLimit+"?isFirst=1&tpl=co2&renderPartial=true";
-	
+	var url = "news/co/index/type/"+contextData.type+"/id/"+contextData.id;
 	setTimeout(function(){ //attend que le scroll retourn en haut (kscrollto)
 		
-		ajaxPost('#timeline-page', baseUrl+'/co2/'+url, 
-			null,
+		ajaxPost('#timeline-page', baseUrl+'/'+url, 
+			{
+				formCreate:false,
+				inline:true,
+				nbCol:3,
+				scroll:false,
+				indexStep:3
+			},
 			function(){ 
 				//if(typeItem=="citoyens") loadLiveNow();
-	            $(window).bind("scroll",function(){ 
+	            /*$(window).bind("scroll",function(){ 
 				    if(!loadingData && !scrollEnd && colNotifOpen){
 				          var heightWindow = $("html").height() - $("body").height();
 				          if( $(this).scrollTop() >= heightWindow - 1000){
@@ -472,7 +490,7 @@ function loadNewsStream(isLiveBool){
 				          }
 				    }
 				});
-				loadingData = false;
+				loadingData = false;*/
 		},"html");
 	}, 700);
 }
@@ -485,12 +503,18 @@ jQuery(document).ready(function() {
 
 	//SLIDE MAP
 	//**************************************
+
 	var paramsMapZAD = {
 		container : "mapZad",
 		activeCluster : false
 	};
 	mapObj.init(paramsMapZAD);
-	mapObj.addElts(mapTest);
+	mapObj.addElts(mapTest, true);
+
+	
+
+
+
 	
 	//SLIDE INIT
 	//**************************************
